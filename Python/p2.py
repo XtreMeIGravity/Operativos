@@ -1,12 +1,10 @@
 # Import the module
 import subprocess
 # Ask the user for input
-host = input("Enter a host to ping: ")
+print("obteniendo los datos de la tarjeta wlan")
 # Set up the echo command and direct the output to a pipe
-p1 = subprocess.Popen(['ping', '-c 2', host], stdout=subprocess.PIPE)
+p1 = subprocess.Popen(['ifconfig', 'wlp7s0'], stdout=subprocess.PIPE)
 # Run the command
 output = p1.communicate()[0]
+output=output.strip( '\n' )
 print(output)
-for x in output:
-  print (x,end="")
-  print ("|",end="")
