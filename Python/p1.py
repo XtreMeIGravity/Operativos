@@ -3,8 +3,7 @@ path="/home/xtreme/"
 jpg=path+"jpg"
 pdf=path+"pdf"
 mp4=path+"mp4"
-s = subprocess.check_output(["find",path,"-type","f","-iname","*.pdf","-o","-name","*.mp4","-o","-name","*.jpg",
-"!","-path",jpg ,"!","-path", pdf,"!","-path", mp4]).decode("utf-8")
+s = subprocess.check_output(["find",path,"-type","f","-iname","*.pdf","-o","-name","*.mp4","-o","-name","*.jpg"]).decode("utf-8")
 rb=[s]
 rb=rb[0].split("\n")
 rb.pop(len(rb)-1)
