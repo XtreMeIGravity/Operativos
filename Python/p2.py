@@ -1,9 +1,24 @@
 import re
 import subprocess
 def dameIPEquipo():
-    IP="192.168.1.244"
-    MS="255.255.255.0"
-    return IP,MS
+    s = subprocess.check_output(["ifconfig"]).decode("utf-8")#"ifconfig" para ubuntu
+    print(s)
+    salida=[s]
+    salida=salida[0].split("\n")
+    salida.pop(len(salida)-1)
+    #busca la palabra netmask la cual solo existe 2 veces en el string
+    palabra = 'netmask'
+    res = [(string)for indice, string in enumerate(salida) if palabra in string]
+    #limpia el string, seleccionanado el segundo netmask puede encontrarse en el primero o tercero rara veZ
+    for x in range(len(res)):
+        res[x]=res[x].strip()
+        if res[x].find("inet 127.0.0.1")==-1:
+            IR=res[x]
+            break
+    IR=[IR]
+    IR=IR[0].split(" ")
+    return IR[1],IR[4]
+
 def devuelveIPs(IP,MS):
     #DIVIDIENDO LA IP
     IP=[IP]
@@ -29,7 +44,7 @@ def devuelveIPs(IP,MS):
     a=b=c=0
     #Imprimiendo el rango
     for x in range(1,NoRedes-1):
-        print("%.2f"%(x*100/(NoRedes-1)))
+        #print("%.2f"%(x*100/(NoRedes-1))) porcentaje de progreso
         if (x%256)==0:
             c=(c+1)%256
         if (x%65536)==0:
@@ -38,6 +53,7 @@ def devuelveIPs(IP,MS):
             a=(a+1)%256
         IPS.append([HOST[0]+a,HOST[1]+b,HOST[2]+c,HOST[3]+(x%256)])
         p1 = subprocess.run(['ping','-c 1',"-w 1", '-l',"1", ".".join(str(x) for x in IPS[x-1])], stdout=subprocess.PIPE).returncode
+        print(IPS[x-1])
         if p1==0:
             IPSActivas.append(IPS[x-1])
         else:
