@@ -19,7 +19,7 @@ def dameIPEquipo():
     IR=IR[0].split(" ")
     return IR[1],IR[4]
 
-def devuelveIPs(IP,MS):
+def devuelveIPs(IP,MS):#Devuelve el rango en base a la mascara de subred y la ip
     #DIVIDIENDO LA IP
     IP=[IP]
     IP=IP[0].split('.')
@@ -61,12 +61,12 @@ def devuelveIPs(IP,MS):
             IPSNoActivas.append(IPS[x-1])
             print("NO")
     return IPSActivas,IPSNoActivas
-def MandaScript(server1,users,passw):
+
+def GeneraRespaldos(server1,users,passw):
     server=".".join(str(x) for x in server1)
     path=str(Path.home())#Obtiene el path de home /home/user de donde sacara el script
     for x in range(len(users)):
         #Envia
-        #command=["sshpass","-p"+passw[x],"scp",path+"./script.py",users[x]+"@"+server+":"]
         command=["sshpass","-p"+passw[x],"scp","./p1.py",users[x]+"@"+server+":"]
         v=subprocess.run(command,shell=False).returncode
         if v == 0:
@@ -90,10 +90,5 @@ IPSActivas=[[192,168,1,70],[192,168,1,76]]
 path=str(Path.home())#Obtiene el path de home /home/user
 subprocess.run(["mkdir", "-p",path+"/Respaldos"])
 for x in IPSActivas:
-    MandaScript(x,users,passw)
-
-
-
-
-#mkdir $home/RESPALDO
-#scp user@server:$home/TodoEnUno.tar  /home/RESPALDO
+    GeneraRespaldos(x,users,passw)
+print("FIN")
