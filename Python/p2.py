@@ -1,8 +1,8 @@
 import re
+from pathlib import Path
 import subprocess
 def dameIPEquipo():
     s = subprocess.check_output(["ifconfig"]).decode("utf-8")#"ifconfig" para ubuntu
-    print(s)
     salida=[s]
     salida=salida[0].split("\n")
     salida.pop(len(salida)-1)
@@ -53,19 +53,47 @@ def devuelveIPs(IP,MS):
             a=(a+1)%256
         IPS.append([HOST[0]+a,HOST[1]+b,HOST[2]+c,HOST[3]+(x%256)])
         p1 = subprocess.run(['ping','-c 1',"-w 1", '-l',"1", ".".join(str(x) for x in IPS[x-1])], stdout=subprocess.PIPE).returncode
-        print(IPS[x-1])
+        print(IPS[x-1],end="")
         if p1==0:
             IPSActivas.append(IPS[x-1])
+            print("Check")
         else:
             IPSNoActivas.append(IPS[x-1])
+            print("NO")
     return IPSActivas,IPSNoActivas
+def MandaScript(server1,users,passw):
+    server=".".join(str(x) for x in server1)
+    path=str(Path.home())#Obtiene el path de home /home/user de donde sacara el script
+    for x in range(len(users)):
+        #Envia
+        #command=["sshpass","-p"+passw[x],"scp",path+"./script.py",users[x]+"@"+server+":"]
+        command=["sshpass","-p"+passw[x],"scp","./p1.py",users[x]+"@"+server+":"]
+        v=subprocess.run(command,shell=False).returncode
+        if v == 0:
+            #Ejecuta
+            command=["sshpass","-p"+passw[x],"ssh",users[x]+"@"+server,"python3 p1.py"]
+            p1 = subprocess.run(command).returncode
+            #Trae
+            command=["sshpass","-p"+passw[x],"scp",users[x]+"@"+server+":TodoJunto.tar",path+"/Respaldos/"+server+".tar"]
+            p1 = subprocess.run(command).returncode
+            break
 
 #main
-IPS,MS=dameIPEquipo()
-print(IPS)
-print(MS)
-IPSActivas,IPSNoActivas=devuelveIPs(IPS,MS)
+users=["l123","l1234"]
+passw=["123","1234"]
+#IPS,MS=dameIPEquipo()
+#print(IPS)
+#print(MS)
+#print("Analizando ip")
+#IPSActivas,IPSNoActivas=devuelveIPs(IPS,MS)
+IPSActivas=[[192,168,1,70],[192,168,1,76]]
+path=str(Path.home())#Obtiene el path de home /home/user
+subprocess.run(["mkdir", "-p",path+"/Respaldos"])
 for x in IPSActivas:
-    print(x)
+    MandaScript(x,users,passw)
+
+
+
+
 #mkdir $home/RESPALDO
 #scp user@server:$home/TodoEnUno.tar  /home/RESPALDO
