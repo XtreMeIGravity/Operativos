@@ -19,4 +19,4 @@ for x in rb:
     elif x.find(".pdf")>=0:
         dest=pdf
     subprocess.run(["cp",x,dest])
-subprocess.run(["tar", "-czvf", path+"TodoJunto.tar",jpg, pdf, mp4 ])
+subprocess.run(["tar", "-czvf", path+"/TodoJunto.tar",jpg, pdf, mp4 ])
