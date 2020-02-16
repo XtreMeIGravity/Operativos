@@ -44,7 +44,6 @@ def devuelveIPs(IP,MS):#Devuelve el rango en base a la mascara de subred y la ip
     a=b=c=0
     #Imprimiendo el rango
     for x in range(1,NoRedes-1):
-        #print("%.2f"%(x*100/(NoRedes-1))) porcentaje de progreso
         if (x%256)==0:
             c=(c+1)%256
         if (x%65536)==0:
@@ -81,12 +80,12 @@ def GeneraRespaldos(server1,users,passw):
 #main
 users=["l123","l1234"]
 passw=["123","1234"]
-#IPS,MS=dameIPEquipo()
-#print(IPS)
-#print(MS)
-#print("Analizando ip")
-#IPSActivas,IPSNoActivas=devuelveIPs(IPS,MS)
-IPSActivas=[[192,168,1,70],[192,168,1,76]]
+IPS,MS=dameIPEquipo()
+print(IPS)
+print(MS)
+print("Analizando ip")
+IPSActivas,IPSNoActivas=devuelveIPs(IPS,MS)
+#IPSActivas=[[192,168,1,70],[192,168,1,76]]
 path=str(Path.home())#Obtiene el path de home /home/user
 subprocess.run(["mkdir", "-p",path+"/Respaldos"])
 for x in IPSActivas:
