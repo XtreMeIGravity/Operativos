@@ -60,9 +60,12 @@ def devuelveIPs(IP,MS):
             IPSNoActivas.append(IPS[x-1])
     return IPSActivas,IPSNoActivas
 
+#main
 IPS,MS=dameIPEquipo()
 print(IPS)
 print(MS)
 IPSActivas,IPSNoActivas=devuelveIPs(IPS,MS)
 for x in IPSActivas:
     print(x)
+#mkdir $home/RESPALDO
+#scp user@server:$home/TodoEnUno.tar  /home/RESPALDO
