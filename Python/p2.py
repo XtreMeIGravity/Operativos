@@ -78,8 +78,8 @@ def GeneraRespaldos(server1,users,passw):
             break
 
 #main
-users=["l123","l1234"]
-passw=["123","1234"]
+users=["l123","l1234","allgamers"]
+passw=["123","1234","HANAKO1M"]
 IPS,MS=dameIPEquipo()
 print(IPS)
 print(MS)
