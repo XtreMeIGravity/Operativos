@@ -3,7 +3,6 @@ from pathlib import Path
 import subprocess
 import time
 def GeneraRespaldos(server1,users,passw):
-    server=".".join(str(x) for x in server1)
     path=str(Path.home())#Obtiene el path de home /home/user de donde sacara el script
     for x in range(len(users)):
         #Envia
@@ -13,29 +12,40 @@ def GeneraRespaldos(server1,users,passw):
         v=v.returncode
         print(v)
         if v == 0:
+            return users[x],passw[x],server
             break
-def CompruebaExistencia(server1,users,passw):
-    server=".".join(str(x) for x in server1)
-    path=str(Path.home())#Obtiene el path de home /home/user de donde sacara el script
-    for x in range(len(users)):
-        #Busqueda
-        command=["sshpass","-p"+passw[x],"ssh",users[x]+"@"+server,"find","-type","f","-iname","RespaldoDavid.tar",] #BUscar el archivo
-        p1 = subprocess.check_output(command).decode("utf-8")
-        print(p1)
-        if p1 == "":
-            return False
+def CompruebaExistencia(server,user,passw):
+    #Busqueda
+    command=["sshpass","-p"+passw,"ssh",user+"@"+server,"find","-type","f","-iname","RespaldoDavid.tar",] #BUscar el archivo
+    p1 = subprocess.check_output(command).decode("utf-8")
+    if p1 == "":
+        return False
     return True
 #main
-users=["allgamers"]
-passw=["HANAKO1M"]
-IPSActivas=[[10,100,70,251]]
+users=["allgamers","lawiet"]
+passw=["HANAKO1M","5Jm3Gm"]
+IPSActivas=[[10,100,79,161],[10,100,67,156]]
+
+userM=[]
+passwM=[]
+IPM=[]
+user=""
+password=""
+server=""
+
 for x in IPSActivas:
-    GeneraRespaldos(x,users,passw)
+    server=".".join(str(y) for y in x)
+    user,password,server=GeneraRespaldos(server,users,passw)
+    userM.append(user)
+    passwM.append(password)
+    IPM.append(server)
+
+
 while True:
-    for x in IPSActivas:
-        print("Comprobando existencia en",end="")
-        print(x)
-        if(CompruebaExistencia(x,users,passw)==False):
+    for x in range(len(userM)):
+        print("Comprobando existencia en ",end="")
+        print(IPM[x],userM[x],passwM[x])
+        if(CompruebaExistencia(IPM[x],userM[x],passwM[x])==False):
             print("Inyectando")
-            GeneraRespaldos(x,users,passw)
-        time.sleep(4)
+            GeneraRespaldos(IPM[x],users,passw)
+    time.sleep(4)
