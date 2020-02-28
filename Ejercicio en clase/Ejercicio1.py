@@ -16,15 +16,21 @@ def GeneraRespaldos(server1,users,passw):
             break
 def CompruebaExistencia(server,user,passw):
     #Busqueda
-    command=["sshpass","-p"+passw,"ssh",user+"@"+server,"find","-type","f","-iname","RespaldoDavid.tar",] #BUscar el archivo
+    #BUscar el archivo
+    command=["sshpass","-p"+passw,"ssh",user+"@"+server,"find","-type","f","-iname","RespaldoDavid.tar",] 
     p1 = subprocess.check_output(command).decode("utf-8")
     if p1 == "":
         return False
     return True
+def LLenaArreglos(userM,passwM,IPM,user,password,server):
+    userM.append(user)
+    passwM.append(password)
+    IPM.append(server)
+    return UserM,passwM,IPM
 #main
 users=["allgamers","lawiet"]
 passw=["HANAKO1M","5Jm3Gm"]
-IPSActivas=[[10,100,79,161],[10,100,67,156]]
+IPSActivas=[[10,100,74,1],[10,100,67,156]]
 
 userM=[]
 passwM=[]
@@ -36,9 +42,8 @@ server=""
 for x in IPSActivas:
     server=".".join(str(y) for y in x)
     user,password,server=GeneraRespaldos(server,users,passw)
-    userM.append(user)
-    passwM.append(password)
-    IPM.append(server)
+    #CreaMemoria
+    UserM,passwM,IPM=LLenaArreglos(userM,passwM,IPM,user,password,server)
 
 
 while True:
