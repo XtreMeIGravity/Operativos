@@ -3,7 +3,7 @@
 ; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 helloworld-lf.o -o helloworld-lf
 ; Run with: ./helloworld-lf
  
-%include        'functions.asm'
+%include        'lesson7Func.asm'
  
 SECTION .data
 msg1    db      'Hello, brave new world!', 0h          ; NOTE we have removed the line feed character 0Ah

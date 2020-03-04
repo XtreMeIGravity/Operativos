@@ -3,7 +3,7 @@
 ; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 helloworld-args.o -o helloworld-args
 ; Run with: ./helloworld-args
  
-%include        'functions.asm'
+%include        'lesson7Func.asm'
  
 SECTION .text
 global  _start
