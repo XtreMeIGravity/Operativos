@@ -1,0 +1,13 @@
+REgistros proposito general
+    64 bits   Rax,...,Rdx,Rsi,Rdi,Rcp
+    32 bits   Eax,...,Edx,...
+    16 bits   Ax,...,Dx
+    8  bits   AH
+            AL
+Registros de proposito especifico
+    https://www.tutorialspoint.com/assembly_programming/assembly_registers.htm
+Pila en procesos
+    almacena el salto de linea o funcion 
+Program counter
+    Registro del proceso
+    
