@@ -3,7 +3,7 @@
 ; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 helloworld-inc.o -o helloworld-inc
 ; Run with: ./helloworld-inc
  
-%include        'lection5Func.asm'
+%include        'lesson5Func.asm'
  
 SECTION .data
 msg1    db      'Hello, brave new world!', 0Ah, 0h          ; NOTE the null terminating byte
