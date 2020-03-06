@@ -1,8 +1,8 @@
 %include        'functions.asm'
 
 SECTION .data
-msg1    db      'x', 0h  ; NOTE the null terminating byte
-msg2    db      '=', 0h  ; NOTE the null terminating byte
+msg1    db      'x', 0h  ; terminacion en caracter nulo sin salto de linea
+msg2    db      '=', 0h  ; terminacion en caracter nulo sin salto de linea
  
 SECTION .text
 global  _start
@@ -12,10 +12,10 @@ _start:
     mov     ecx, 0      ;var1
     mov     ebx, 0      ;var2
 
-Ciclo1:  ;ETIQUETA PARA CICLO
+Ciclo1:     ;ETIQUETA PARA CICLO1
     inc     ecx         ;Incrementa var1
-    mov     ebx, 0
-Ciclo2:
+    mov     ebx, 0      ;Resetea el valor de la segunda variable
+Ciclo2:     ;ETIQUETA PARA CICLO2
     inc     ebx         ;Incrementa var2
 
     mov     eax, ecx    ;Apunta el valor el ecx a eax
