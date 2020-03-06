@@ -12,8 +12,8 @@ _start:
 
     mov     ecx, 0
     mov     ebx, 1
- 
-nextNumber:
+
+nextNumber:  ;ETIQUETA PARA CICLO
     inc     ecx;INcrementa
 
     mov     eax, ebx
@@ -36,9 +36,9 @@ nextNumber:
     cmp     ecx, 10
     jne     nextNumber
 
-    mov     ecx , 0
-    inc     ebx;INcrementa
-    cmp     ebx, 10
-    jne     nextNumber
+    mov     ecx , 0        ;REsetea el valor de el aumento 
+    inc     ebx            ;INcrementa la multiplicacion en 1
+    cmp     ebx, 10        ;Si la segunda variable es igual 10 termina si no regresa a la etiqueta
+    jne     nextNumber     ;Regreso etiqueta
  
-    call    quit
+    call    quit            ;FINALIZA :D
