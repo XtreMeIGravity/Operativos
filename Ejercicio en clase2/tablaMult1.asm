@@ -9,35 +9,36 @@ global  _start
  
 _start:
 
-    mov     ecx, 0
-    mov     ebx, 1
+    mov     ecx, 0      ;var1
+    mov     ebx, 0      ;var2
 
-nextNumber:  ;ETIQUETA PARA CICLO
-    inc     ecx;INcrementa
+Ciclo1:  ;ETIQUETA PARA CICLO
+    inc     ecx         ;Incrementa var1
+    mov     ebx, 0
+Ciclo2:
+    inc     ebx         ;Incrementa var2
 
-    mov     eax, ebx
-    call    iprint        ; Imprime el 1
+    mov     eax, ecx    ;Apunta el valor el ecx a eax
+    call    iprint      ;ImprimeEntero el valor de nuestra var2 para esto requiere que el valor a imprimir este en eax
 
-    mov     eax, msg1     ;IMprime el x
-    call    sprint
+    mov     eax, msg1   ;Apunta el valor el msg1 a eax
+    call    sprint      ;ImprimeString el x para esto requiere que el valor a imprimir este en eax
 
-    mov     eax, ecx
-    call    iprint        ; IMprime el aumento
+    mov     eax, ebx    ;Apunta el valor el ecx a eax
+    call    iprint      ;ImprimeEntero el valor de nuestra var2 para esto requiere que el valor a imprimir este en eax
 
-    mov     eax, msg2     ;IMprime el =
-    call    sprint
+    mov     eax, msg2   ;Apunta el valor el msg2 a eax
+    call    sprint      ;ImprimeString el x para esto requiere que el valor a imprimir este en eax
 
-    mov     eax, ecx     
-    mov     ebx, ebx    
-    mul     ebx
-    call    iprintLF      ;Imprime  el resultado
+    mov     eax, ecx    ;asigna ecx a eax
+    mov     ebx, ebx    ;asigna ebx a ebx  NO NECESARIO
+    mul     ebx         ;Multiplica el eax  x ebx y el resultado se guarda en eax
+    call    iprintLF    ;Imprime  el resultado
 
-    cmp     ecx, 10
-    jne     nextNumber
+    cmp     ebx, 10     ;Si la segunda variable es igual 10 termina si no regresa a la etiqueta
+    jne     Ciclo2      ;Regreso etiqueta
 
-    mov     ecx , 0        ;REsetea el valor de el aumento 
-    inc     ebx            ;INcrementa la multiplicacion en 1
-    cmp     ebx, 11        ;Si la segunda variable es igual 10 termina si no regresa a la etiqueta
-    jne     nextNumber     ;Regreso etiqueta
+    cmp     ecx, 10     ;Si la segunda variable es igual 10 termina si no regresa a la etiqueta
+    jne     Ciclo1      ;Regreso etiqueta
  
     call    quit            ;FINALIZA :D
