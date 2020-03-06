@@ -1,9 +1,8 @@
 %include        'functions.asm'
 
- 
 SECTION .data
-msg1    db      'x', 0, 0h          ; NOTE the null terminating byte
-msg2    db      '=', 0, 0h  ; NOTE the null terminating byte
+msg1    db      'x', 0h  ; NOTE the null terminating byte
+msg2    db      '=', 0h  ; NOTE the null terminating byte
  
 SECTION .text
 global  _start
@@ -38,7 +37,7 @@ nextNumber:  ;ETIQUETA PARA CICLO
 
     mov     ecx , 0        ;REsetea el valor de el aumento 
     inc     ebx            ;INcrementa la multiplicacion en 1
-    cmp     ebx, 10        ;Si la segunda variable es igual 10 termina si no regresa a la etiqueta
+    cmp     ebx, 11        ;Si la segunda variable es igual 10 termina si no regresa a la etiqueta
     jne     nextNumber     ;Regreso etiqueta
  
     call    quit            ;FINALIZA :D
