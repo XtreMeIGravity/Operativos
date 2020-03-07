@@ -14,7 +14,9 @@ _start:
 
 Ciclo1:     ;ETIQUETA PARA CICLO1
     inc     ecx         ;Incrementa var1
+
     mov     ebx, 0      ;Resetea el valor de la segunda variable
+
 Ciclo2:     ;ETIQUETA PARA CICLO2
     inc     ebx         ;Incrementa var2
 
@@ -41,4 +43,5 @@ Ciclo2:     ;ETIQUETA PARA CICLO2
     cmp     ecx, 10     ;Si la segunda variable es igual 10 termina si no regresa a la etiqueta
     jne     Ciclo1      ;Regreso etiqueta
  
+Fin:
     call    quit            ;FINALIZA :D
