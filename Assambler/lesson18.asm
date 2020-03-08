@@ -3,7 +3,7 @@
 ; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 fizzbuzz.o -o fizzbuzz
 ; Run with: ./fizzbuzz
  
-%include        'functions.asm'
+%include        'lesson16Func.asm'
  
 SECTION .data
 fizz        db      'Fizz', 0h     ; a message string

@@ -3,7 +3,7 @@
 ; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 time.o -o time
 ; Run with: ./time
  
-%include        'functions.asm'
+%include        'lesson16Func.asm'
  
 SECTION .data
 msg        db      'Seconds since Jan 01 1970: ', 0h     ; a message string

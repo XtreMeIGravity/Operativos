@@ -3,7 +3,7 @@
 ; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 fork.o -o fork
 ; Run with: ./fork
  
-%include        'functions.asm'
+%include        'lesson16Func.asm'
  
 SECTION .data
 childMsg        db      'This is the child process', 0h     ; a message string

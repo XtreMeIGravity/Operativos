@@ -3,7 +3,7 @@
 ; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 socket.o -o socket
 ; Run with: ./socket
  
-%include    'functions.asm'
+%include    'lesson16Func.asm'
  
 SECTION .bss
 buffer resb 255,                ; variable to store request headers

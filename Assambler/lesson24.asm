@@ -3,7 +3,7 @@
 ; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 open.o -o open
 ; Run with: ./open
  
-%include    'functions.asm'
+%include    'lesson16Func.asm'
  
 SECTION .data
 filename db 'readme.txt', 0h    ; the filename to create

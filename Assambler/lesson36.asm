@@ -3,7 +3,7 @@
 ; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 crawler.o -o crawler
 ; Run with: ./crawler
  
-%include    'functions.asm'
+%include    'lesson16Func.asm'
  
 SECTION .data
 ; our request string
