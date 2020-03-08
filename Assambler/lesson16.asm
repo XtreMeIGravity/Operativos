@@ -1,7 +1,7 @@
 ; Calculator (ATOI)
-; Compile with: nasm -f elf calculator-atoi.asm
-; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 calculator-atoi.o -o calculator-atoi
-; Run with: ./calculator-atoi 20 1000 317
+; Compile with: nasm -f elf lesson16.asm
+; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 lesson16.o -o lesson16
+; Run with: ./lesson16 20 1000 317
  
 %include        'lesson16Func.asm'
  

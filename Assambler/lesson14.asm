@@ -1,7 +1,7 @@
 ; Calculator (Multiplication)
-; Compile with: nasm -f elf calculator-multiplication.asm
-; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 calculator-multiplication.o -o calculator-multiplication
-; Run with: ./calculator-multiplication
+; Compile with: nasm -f elf lesson14.asm
+; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 lesson14.o -o lesson14
+; Run with: ./lesson14
  
 %include        'lesson11Func.asm'
  

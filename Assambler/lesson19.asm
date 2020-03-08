@@ -1,7 +1,7 @@
 ; Execute
-; Compile with: nasm -f elf execute.asm
-; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 execute.o -o execute
-; Run with: ./execute
+; Compile with: nasm -f elf lesson19.asm
+; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 lesson19.o -o lesson19
+; Run with: ./lesson19
  
 %include        'lesson16Func.asm'
  

@@ -1,7 +1,7 @@
 ; Fork
-; Compile with: nasm -f elf fork.asm
-; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 fork.o -o fork
-; Run with: ./fork
+; Compile with: nasm -f elf lesson20.asm
+; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 lesson20.o -o lesson20
+; Run with: ./lesson20
  
 %include        'lesson16Func.asm'
  

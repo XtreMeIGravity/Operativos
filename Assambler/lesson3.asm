@@ -1,7 +1,7 @@
 ; Hello World Program (Calculating string length)
-; Compile with: nasm -f elf helloworld-len.asm
-; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 helloworld-len.o -o helloworld-len
-; Run with: ./helloworld-len
+; Compile with: nasm -f elf lesson3.asm
+; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 lesson3.o -o lesson3
+; Run with: ./lesson3
  
 SECTION .data
 msg     db      'Hello, brave new world!', 0Ah ; we can modify this now without having to update anywhere else in the program

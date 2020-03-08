@@ -1,7 +1,7 @@
 ; Calculator (Division)
-; Compile with: nasm -f elf calculator-division.asm
-; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 calculator-division.o -o calculator-division
-; Run with: ./calculator-division
+; Compile with: nasm -f elf lesson15.asm
+; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 lesson15.o -o lesson15
+; Run with: ./lesson15
  
 %include        'lesson11Func.asm'
  

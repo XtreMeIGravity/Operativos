@@ -1,7 +1,7 @@
 ; Hello World Program (Count to 10 itoa)
-; Compile with: nasm -f elf helloworld-itoa.asm
-; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 helloworld-itoa.o -o helloworld-itoa
-; Run with: ./helloworld-itoa
+; Compile with: nasm -f elf lesson11.asm
+; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 lesson11.o -o lesson11
+; Run with: ./lesson11
  
 %include        'lesson11Func.asm'
  

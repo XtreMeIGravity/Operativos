@@ -1,7 +1,7 @@
 ; Hello World Program (Getting input)
-; Compile with: nasm -f elf helloworld-input.asm
-; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 helloworld-input.o -o helloworld-input
-; Run with: ./helloworld-input
+; Compile with: nasm -f elf lesson9.asm
+; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 lesson9.o -o lesson9
+; Run with: ./lesson9
  
 %include        'lesson7Func.asm'
  

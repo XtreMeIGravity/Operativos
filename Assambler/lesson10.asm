@@ -1,7 +1,7 @@
 ; Hello World Program (Count to 10)
-; Compile with: nasm -f elf helloworld-10.asm
-; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 helloworld-10.o -o helloworld-10
-; Run with: ./helloworld-10
+; Compile with: nasm -f elf lesson10.asm
+; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 lesson10.o -o lesson10
+; Run with: ./lesson10
  
 %include        'lesson7Func.asm'
  

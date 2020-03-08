@@ -1,7 +1,7 @@
 ; Open
-; Compile with: nasm -f elf open.asm
-; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 open.o -o open
-; Run with: ./open
+; Compile with: nasm -f elf lesson24.asm
+; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 lesson24.o -o lesson24
+; Run with: ./lesson24
  
 %include    'lesson16Func.asm'
  

@@ -1,7 +1,7 @@
 ; Seek
-; Compile with: nasm -f elf seek.asm
-; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 seek.o -o seek
-; Run with: ./seek
+; Compile with: nasm -f elf lesson27.asm
+; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 lesson27.o -o lesson27
+; Run with: ./lesson27
  
 %include    'lesson16Func.asm'
  

@@ -1,7 +1,7 @@
 ; Calculator (Subtraction)
-; Compile with: nasm -f elf calculator-subtraction.asm
-; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 calculator-subtraction.o -o calculator-subtraction
-; Run with: ./calculator-subtraction
+; Compile with: nasm -f elf lesson13.asm
+; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 lesson13.o -o lesson13
+; Run with: ./lesson13
  
 %include        'lesson11Func.asm'
  

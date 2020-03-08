@@ -1,7 +1,7 @@
 ; Unlink
-; Compile with: nasm -f elf unlink.asm
-; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 unlink.o -o unlink
-; Run with: ./unlink
+; Compile with: nasm -f elf lesson28.asm
+; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 lesson28.o -o lesson28
+; Run with: ./lesson28
  
 %include    'lesson16Func.asm'
  

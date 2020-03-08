@@ -1,7 +1,7 @@
 ; Hello World Program (Subroutines)
-; Compile with: nasm -f elf helloworld-len.asm
-; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 helloworld-len.o -o helloworld-len
-; Run with: ./helloworld-len
+; Compile with: nasm -f elf lesson4.asm
+; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 lesson4.o -o lesson4
+; Run with: ./lesson4
  
 SECTION .data
 msg     db      'Hello, brave new world!', 0Ah

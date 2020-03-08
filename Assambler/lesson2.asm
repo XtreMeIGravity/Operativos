@@ -1,7 +1,8 @@
 ; Hello World Program - asmtutor.com
-; Compile with: nasm -f elf helloworld.asm
-; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 helloworld.o -o helloworld
-; Run with: ./helloworld
+; Compile with: nasm -f elf lesson2.asm
+; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 lesson2.o -o lesson2
+; Run with: ./lesson2clear
+
  
 SECTION .data   ;seccion de constantes
 msg     db      'Hello World!', 0Ah     ; msg nombre de variable db doubleyte<-tam    cadena con su fin

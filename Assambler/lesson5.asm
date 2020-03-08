@@ -1,7 +1,7 @@
 ; Hello World Program (External file include)
-; Compile with: nasm -f elf helloworld-inc.asm
-; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 helloworld-inc.o -o helloworld-inc
-; Run with: ./helloworld-inc
+; Compile with: nasm -f elf lesson5.asm
+; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 lesson5.o -o lesson5
+; Run with: ./lesson5
  
 %include        'lection5Func.asm'                             ; include our external file
  

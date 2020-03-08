@@ -1,7 +1,7 @@
 ; Time
-; Compile with: nasm -f elf time.asm
-; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 time.o -o time
-; Run with: ./time
+; Compile with: nasm -f elf lesson21.asm
+; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 lesson21.o -o lesson21
+; Run with: ./lesson21
  
 %include        'lesson16Func.asm'
  

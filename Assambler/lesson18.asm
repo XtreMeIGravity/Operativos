@@ -1,7 +1,7 @@
-; Fizzbuzz
-; Compile with: nasm -f elf fizzbuzz.asm
-; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 fizzbuzz.o -o fizzbuzz
-; Run with: ./fizzbuzz
+; lesson18
+; Compile with: nasm -f elf lesson18.asm
+; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 lesson18.o -o lesson18
+; Run with: ./lesson18
  
 %include        'lesson16Func.asm'
  

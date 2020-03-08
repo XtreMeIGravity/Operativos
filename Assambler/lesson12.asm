@@ -1,7 +1,7 @@
 ; Calculator (Addition)
-; Compile with: nasm -f elf calculator-addition.asm
-; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 calculator-addition.o -o calculator-addition
-; Run with: ./calculator-addition
+; Compile with: nasm -f elf lesson12.asm
+; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 lesson12.o -o lesson12
+; Run with: ./lesson12
  
 %include        'lesson11Func.asm'
  

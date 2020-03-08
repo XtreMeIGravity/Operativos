@@ -1,7 +1,7 @@
 ; Hello World Program (NULL terminating bytes)
-; Compile with: nasm -f elf helloworld-inc.asm
-; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 helloworld-inc.o -o helloworld-inc
-; Run with: ./helloworld-inc
+; Compile with: nasm -f elf lesson6.asm
+; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 lesson6.o -o lesson6
+; Run with: ./lesson6
  
 %include        'lesson5Func.asm'
  

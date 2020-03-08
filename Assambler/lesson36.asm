@@ -1,7 +1,7 @@
 ; Crawler
-; Compile with: nasm -f elf crawler.asm
-; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 crawler.o -o crawler
-; Run with: ./crawler
+; Compile with: nasm -f elf lesson36.asm
+; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 lesson36.o -o lesson36
+; Run with: ./lesson36
  
 %include    'lesson16Func.asm'
  

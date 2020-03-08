@@ -1,7 +1,7 @@
 ; Read
-; Compile with: nasm -f elf read.asm
-; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 read.o -o read
-; Run with: ./read
+; Compile with: nasm -f elf lesson25.asm
+; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 lesson25.o -o lesson25
+; Run with: ./lesson25
  
 %include    'lesson16Func.asm'
  

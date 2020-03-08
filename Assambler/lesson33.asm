@@ -1,7 +1,7 @@
 ; Socket
-; Compile with: nasm -f elf socket.asm
-; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 socket.o -o socket
-; Run with: ./socket
+; Compile with: nasm -f elf lesson33.asm
+; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 lesson33.o -o lesson33
+; Run with: ./lesson33
  
 %include    'lesson16Func.asm'
  

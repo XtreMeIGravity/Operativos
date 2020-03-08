@@ -1,7 +1,7 @@
-; Namespace
-; Compile with: nasm -f elf namespace.asm
-; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 namespace.o -o namespace
-; Run with: ./namespace
+; lesson17
+; Compile with: nasm -f elf lesson17.asm
+; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 lesson17.o -o lesson17
+; Run with: ./lesson17
  
 %include        'lesson16Func.asm'
  

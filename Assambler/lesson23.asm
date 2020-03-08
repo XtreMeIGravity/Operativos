@@ -1,7 +1,7 @@
 ; Write
-; Compile with: nasm -f elf write.asm
-; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 write.o -o write
-; Run with: ./write
+; Compile with: nasm -f elf lesson23.asm
+; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 lesson23.o -o lesson23
+; Run with: ./lesson23
  
 %include    'lesson16Func.asm'
  

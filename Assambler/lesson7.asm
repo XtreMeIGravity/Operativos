@@ -1,7 +1,7 @@
 ; Hello World Program (Print with line feed)
-; Compile with: nasm -f elf helloworld-lf.asm
-; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 helloworld-lf.o -o helloworld-lf
-; Run with: ./helloworld-lf
+; Compile with: nasm -f elf lesson7.asm
+; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 lesson7.o -o lesson7
+; Run with: ./lesson7
  
 %include        'lesson7Func.asm'
  
