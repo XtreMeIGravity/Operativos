@@ -39,9 +39,9 @@ subrountineTwo:
  
     mov     eax, msg1       ; move the address of msg1 into eax
     call    sprintLF        ; call our string printing with linefeed function
-    jmp     finished        ; jump to the global label finished
+    jmp     finishedP        ; jump to the global label finished
  
-finished:
+finishedP:
     mov     eax, msg3       ; move the address of msg3 into eax
     call    sprintLF        ; call our string printing with linefeed function
     call    quit            ; call our quit function
