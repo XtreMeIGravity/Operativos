@@ -3,7 +3,7 @@
 ; Link with (64 bit systems require elf_i386 option): ld -m elf_i386 lesson5.o -o lesson5
 ; Run with: ./lesson5
  
-%include        'lection5Func.asm'                             ; include our external file
+%include        'lesson5Func.asm'                             ; include our external file
  
 SECTION .data
 msg1    db      'Hello, brave new world!', 0Ah              ; our first message string

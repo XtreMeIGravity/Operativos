@@ -5,7 +5,7 @@
  
 SECTION .data   ;seccion de constantes o valores definidos
 msg     db      'Hello World!', 0Ah     ; msg nombre de variable db doubleyte<-tam    
-                                        ; cadena con un salto de linea al final
+                                        ; cadena con un salto de linea al final (0Ah)
  
 SECTION .text   ;seccion del programa
 global  _start  ;inicio del programa definicion
