@@ -10,15 +10,15 @@ global  _start
  
 _start:
  
-    pop     ecx             ; first value on the stack is the number of arguments
+    pop     ecx             ; manda el numero de argumentos a la pila
  
 nextArg:
-    cmp     ecx, 0h         ; check to see if we have any arguments left
-    jz      noMoreArgs      ; if zero flag is set jump to noMoreArgs label (jumping over the end of the loop)
-    pop     eax             ; pop the next argument off the stack
-    call    sprintLF        ; call our print with linefeed function
-    dec     ecx             ; decrease ecx (number of arguments left) by 1
-    jmp     nextArg         ; jump to nextArg label
+    cmp     ecx, 0h         ; compara los argumentos hasta encontrar el caracter nulo
+    jz      noMoreArgs      ; cuando encuentre el caracter nulo salta a la etiqueta noMoreArgs
+    pop     eax             ; saca los argumentos de la pila
+    call    sprintLF        ; manda a llamar a la funcion sprintLF(line feed) es decir con salto de linea
+    dec     ecx             ; disminuye 1 exc
+    jmp     nextArg         ; salta a la etiqueta NextArg
  
 noMoreArgs:
     call    quit

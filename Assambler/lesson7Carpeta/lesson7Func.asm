@@ -2,66 +2,75 @@
 ; int slen(String message)
 ; String length calculation function
 slen:
-    push    ebx
-    mov     ebx, eax
- 
+    push    ebx         ; en caso de que ebx tenga un valor almacenado lo mandara al stack
+    mov     ebx, eax    ; apunta ebx (el ya vacio) a el msg o dato a imprimir
+    
 nextchar:
-    cmp     byte [eax], 0
-    jz      finished
-    inc     eax
-    jmp     nextchar
+    cmp     byte [eax], 0   ; compara y toma el primer byte del apuntador 
+                            ; y lo compara con el valor (cadena) 0 que esta hasta el final
+    jz      finished        ; si es zero salta a la etiqueta finished
+    inc     eax             ; incrementa el apuntoador eax lo que hace que apunte al siguiente caracter
+    jmp     nextchar        ; salta a la etiqueta nextchar
  
 finished:
-    sub     eax, ebx
-    pop     ebx
-    ret
- 
+    sub     eax, ebx        ; resta eax-ebx y este se almacena en eax
+    pop     ebx             ; por ultimo se libera el registro ebx
+                            ; trayendo el ultimo valor de ebx de la pila
+    ret                     ; vuelve a donde se mando a llamar a la etiqueta superior
+                            ; con el comando  call
  
 ;------------------------------------------
 ; void sprint(String message)
 ; String printing function
 sprint:
-    push    edx
-    push    ecx
-    push    ebx
-    push    eax
-    call    slen
+    push    edx         ; manda al stack(Pila) el valor de edx
+    push    ecx         ; manda al stack(Pila) el valor de ecx
+    push    ebx         ; manda al stack(Pila) el valor de ebx
+    push    eax         ; manda al stack(Pila) el valor de eax
+    call    slen        ; llama a la funcion slen esta deja en el registro eax la longitud de la cadena
  
-    mov     edx, eax
-    pop     eax
+    mov     edx, eax    ;finalmente en este registro se guarda la longitud y opera 
+    pop     eax         ;Regresa el valor de eax del stack(pila) debido a que el que se requeria cumplio
+                        ;su funcion
  
-    mov     ecx, eax
-    mov     ebx, 1
-    mov     eax, 4
-    int     80h
- 
-    pop     ebx
-    pop     ecx
-    pop     edx
-    ret
+    mov     ecx, eax    ;eax apunta  a la cadena es decir (msg)
+    mov     ebx, 1      ; hacia donde envia la operacion(pantalla) stdout=1
+    mov     eax, 4      ; operacion de escritura stdWrite()eax=4
+    int     80h         ; Una interrupcion que le dice al microprocesador ejecuta el 
+                        ; comando marcado en la linea anterior casi todas las operaciones 
+                        ; usan el registro eax
+    pop     ebx         ;Regresa el valor de ebx del stack(pila)
+    pop     ecx         ;Regresa el valor de ecx del stack(pila)
+    pop     edx         ;Regresa el valor de edx del stack(pila)
+                        ;COMO PODEMOS OBSERVAR ES EN ORDEN OPUESTO AL QUE SE METIERON, esto
+                        ;debido a que la estructura del tipo LIFO
+    ret                 ;vuelve a donde se mando a llamar a la etiqueta sprint
+                        ;con el comando  call
  
  
 ;------------------------------------------
 ; void sprintLF(String message)
-; String printing with line feed function
+; Imprime una cadena añadiendo un satlo de linea 
 sprintLF:
-    call    sprint
+    call    sprint      ; manda a llamar a la funcion sprint , que imprime la cadena como tal
  
-    push    eax         ; push eax onto the stack to preserve it while we use the eax register in this function
-    mov     eax, 0Ah    ; move 0Ah into eax - 0Ah is the ascii character for a linefeed
-    push    eax         ; push the linefeed onto the stack so we can get the address
-    mov     eax, esp    ; move the address of the current stack pointer into eax for sprint
-    call    sprint      ; call our sprint function
-    pop     eax         ; remove our linefeed character from the stack
-    pop     eax         ; restore the original value of eax before our function was called
-    ret                 ; return to our program
+    push    eax         ; manda al stack(Pila) el valor de eax
+    mov     eax, 0Ah    ; agrega 0Ah que equivale a un salto de linea  en ascii
+    push    eax         ; manda al stack(Pila) el valor de eax ( un salto de linea)
+    mov     eax, esp    ; mueve el apuntador de la pila hacia el que se guarda eax(oah)
+    call    sprint      ; manda a llamar a la funcion sprint 
+    pop     eax         ; restaura el ultimo valor almacenado de eax (0Ah)
+    pop     eax         ; restaura el ultimo valor almacenado de eax la cadena a imprimir 
+ret                 ; vuelve a donde se mando a llamar a la etiqueta sprintLF
+                        ;con el comando  call
  
  
 ;------------------------------------------
-; void exit()
-; Exit program and restore resources
+; funcion exit() del programa
+; termina el programa de forma correcta
 quit:
-    mov     ebx, 0
-    mov     eax, 1
-    int     80h
-    ret
+    mov     ebx, 0      ; tu valor de retorno es 0
+    mov     eax, 1      ;manda a llamar la funcion de SYS_EXIT
+    int     80h         
+    ret                 ;vuelve a donde se mando a llamar a la etiqueta quit
+                        ;con el comando  call
