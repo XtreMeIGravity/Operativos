@@ -13,7 +13,7 @@ global  _start
  
 _start:
  
-    mov     eax, 90     ; move our first number into eax
+    mov     eax, 95     ; move our first number into eax
     mov     ebx, 9      ; move our second number into ebx
     div     ebx         ; divide eax by ebx
     call    iprint      ; call our integer print function on the quotient
