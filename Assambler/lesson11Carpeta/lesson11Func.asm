@@ -2,7 +2,7 @@
 ; void iprint(Integer number)
 ; Integer printing function (itoa)
 iprint:
-    push    eax             ; preserve eax on the stack to be restored after function runs
+    push    eax             ; almacena el valor en el stack
     push    ecx             ; preserve ecx on the stack to be restored after function runs
     push    edx             ; preserve edx on the stack to be restored after function runs
     push    esi             ; preserve esi on the stack to be restored after function runs

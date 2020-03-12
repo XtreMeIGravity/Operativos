@@ -8,23 +8,23 @@
 SECTION .text
 global  _start
  
-_start:
+_start:                     ;Etiqueta de inicio del programa
  
-    pop     ecx             ; first value on the stack is the number of arguments
-    pop     edx             ; second value on the stack is the program name (discarded when we initialise edx)
-    sub     ecx, 1          ; decrease ecx by 1 (number of arguments without program name)
-    mov     edx, 0          ; initialise our data register to store additions
+    pop     ecx             ; almacena en la pila el numero de argumentos del programa
+    pop     edx             ; el segundo valor en la pila es el nombre del programa (descartado cuando inicializamos edx)
+    sub     ecx, 1          ; resta 1 al registro ecx para eliminar el arg
+    mov     edx, 0          ; Almacenamos un 0 en dec  en el regiistro edx
  
 nextArg:
-    cmp     ecx, 0h         ; check to see if we have any arguments left
-    jz      noMoreArgs      ; if zero flag is set jump to noMoreArgs label (jumping over the end of the loop)
-    pop     eax             ; pop the next argument off the stack
-    call    atoi            ; convert our ascii string to decimal integer
-    add     edx, eax        ; perform our addition logic
-    dec     ecx             ; decrease ecx (number of arguments left) by 1
-    jmp     nextArg         ; jump to nextArg label
+    cmp     ecx, 0h         ; Revisa si quedan argumentos ya que al final de un programa existe un caracter nulo  Programa arg1 arg2 arg3 0h
+    jz      noMoreArgs      ; cuando se cumple esta condicion salta a la etiqueta NoMoreArg
+    pop     eax             ; expulsa de la pila el argumento siguiente al registro eax 
+    call    atoi            ; llama la funcion que convierte el ascci en decimal 
+    add     edx, eax        ; suma el argumento despues de convertirlo en Decimal, la operacion anterior trabaja sobre el registro eax
+    dec     ecx             ; decrementa ecx (el numero de argumentos)
+    jmp     nextArg         ; salta a la etiqueta nextArg
  
 noMoreArgs:
-    mov     eax, edx        ; move our data result into eax for printing
-    call    iprintLF        ; call our integer printing with linefeed function
-    call    quit            ; call our quit function
+    mov     eax, edx        ; mueve el resultado almacenado al registro eax
+    call    iprintLF        ; Imprime el resultado
+    call    quit            ; FInaliza el programa

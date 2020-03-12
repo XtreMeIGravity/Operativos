@@ -61,7 +61,7 @@ sprintLF:
     call    sprint      ; manda a llamar a la funcion sprint 
     pop     eax         ; restaura el ultimo valor almacenado de eax (0Ah)
     pop     eax         ; restaura el ultimo valor almacenado de eax la cadena a imprimir 
-ret                 ; vuelve a donde se mando a llamar a la etiqueta sprintLF
+    ret                 ; vuelve a donde se mando a llamar a la etiqueta sprintLF
                         ;con el comando  call
  
  
