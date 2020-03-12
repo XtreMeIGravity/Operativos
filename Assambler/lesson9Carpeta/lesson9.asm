@@ -5,31 +5,31 @@
  
 %include        'lesson7Func.asm'
  
-SECTION .data
-msg1        db      'Please enter your name: ', 0h      ; message string asking user for input
-msg2        db      'Hello, ', 0h                       ; message string to use after user has entered their name
+SECTION .data   ;seccion de constantes
+msg1        db      'Please enter your name: ', 0h      ; mensaje 1 , entrada del nombre 
+msg2        db      'Hello, ', 0h                       ; mensaje 2
  
-SECTION .bss
-sinput:     resb    255                                 ; reserve a 255 byte space in memory for the users input string
+SECTION .bss    ;seccion de variables
+sinput:     resb    255                                 ; Reserva 255 bytes 
  
-SECTION .text
+SECTION .text   ;seccion del programa
 global  _start
  
 _start:
  
-    mov     eax, msg1
-    call    sprint
+    mov     eax, msg1       ; apunta el registro eax a msg ya que para sprint requiere que este en eax
+    call    sprint           ; manda a llamar a la funcion sprint esta no inclye un salto de linea
  
-    mov     edx, 255        ; number of bytes to read
+    mov     edx, 255        ; escribe un 255 sobre el registro edx
     mov     ecx, sinput     ; reserved space to store our input (known as a buffer)
-    mov     ebx, 0          ; write to the STDIN file
-    mov     eax, 3          ; invoke SYS_READ (kernel opcode 3)
-    int     80h
+    mov     ebx, 0          ; stdin=0  , prepara la entrada
+    mov     eax, 3          ; manda a llamar la funcion de SYS_READ
+    int     80h             ; Crea una interrupcion para ejecutar lo anterior
  
-    mov     eax, msg2
-    call    sprint
+    mov     eax, msg2       ; apunta el registro eax a msg2 ya que para sprint requiere que este en eax
+    call    sprint          ; manda a llamar a la funcion sprint esta no inclye un salto de linea
  
-    mov     eax, sinput     ; move our buffer into eax (Note: input contains a linefeed)
-    call    sprint          ; call our print function
+    mov     eax, sinput     ; apunta el registro eax a msg2 ya que para sprint requiere que este en eax
+    call    sprint          ; manda a llamar a la funcion sprint esta no inclye un salto de linea
  
     call    quit

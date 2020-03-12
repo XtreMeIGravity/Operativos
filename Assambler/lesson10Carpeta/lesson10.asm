@@ -10,19 +10,19 @@ global  _start
  
 _start:
  
-    mov     ecx, 0          ; ecx is initalised to zero.
+    mov     ecx, 0          ; inicializa ecx en 0
  
 nextNumber:
-    inc     ecx             ; increment ecx
+    inc     ecx             ; aumenta en 1 exc
  
-    mov     eax, ecx        ; move the address of our integer into eax
-    add     eax, 48         ; add 48 to our number to convert from integer to ascii for printing
-    push    eax             ; push eax to the stack
-    mov     eax, esp        ; get the address of the character on the stack
-    call    sprintLF        ; call our print function
+    mov     eax, ecx        ; mueve la direccion exc a eax
+    add     eax, 48         ; suma 48 a eax    , valor de eax=49
+    push    eax             ; manda el valor de eax al stack
+    mov     eax, esp        ; obtiene la direccion de eax del stack
+    call    sprintLF        ; llama a la funcion sprintLF con un salto de linea
  
-    pop     eax             ; clean up the stack so we don't have unneeded bytes taking up space
-    cmp     ecx, 10         ; have we reached 10 yet? compare our counter with decimal 10
-    jne     nextNumber      ; jump if not equal and keep counting
+    pop     eax             ; saca el ultimo valor almacenado en eax
+    cmp     ecx, 10         ; compara el valor de exc con 10
+    jne     nextNumber      ; mientras no sea igual salta a la etiqueta nextNumber
  
     call    quit

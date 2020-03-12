@@ -10,9 +10,9 @@ global  _start
  
 _start:
  
-    mov     eax, 90     ; move our first number into eax
-    mov     ebx, 9      ; move our second number into ebx
-    add     eax, ebx    ; add ebx to eax
-    call    iprintLF    ; call our integer print with linefeed function
+    mov     eax, 90     ; almacena un 90 en eax
+    mov     ebx, 9      ; almacena un 9 en ebx
+    add     eax, ebx    ; suma eax + ebx y almacena el resultado en eax
+    call    iprintLF    ; Imprime un entero con un salto de linea
  
     call    quit

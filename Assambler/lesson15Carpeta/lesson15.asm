@@ -13,13 +13,12 @@ global  _start
  
 _start:
  
-    mov     eax, 90     ; move our first number into eax
-    mov     ebx, 9      ; move our second number into ebx
-    div     ebx         ; divide eax by ebx
-    call    iprint      ; call our integer print function on the quotient
-    mov     eax, msg1   ; move our message string into eax
-    call    sprint      ; call our string print function
-    mov     eax, edx    ; move our remainder into eax
-    call    iprintLF    ; call our integer printing with linefeed function
- 
+    mov     eax, 95     ; almacena un 90 en eax
+    mov     ebx, 9      ; almacena un 9 en ebx
+    div     ebx         ; divide eax sobre ebx y lo almacena en eax
+    call    iprint      ; Imprime un entero 
+    mov     eax, msg1   ; apunta el registro eax a msg ya que para sprint requiere que este en eax
+    call    sprint      ; manda a llamar a la funcion sprint
+    mov     eax, edx    ; en edx queda el residuo de la division
+    call    iprintLF    ; Imprime un entero con salto de linea
     call    quit
