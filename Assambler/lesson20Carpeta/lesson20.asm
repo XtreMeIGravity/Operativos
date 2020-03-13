@@ -14,20 +14,21 @@ global  _start
  
 _start:
  
-    mov     eax, 2              ; invoke SYS_FORK (kernel opcode 2)
-    int     80h
+    mov     eax, 2              ; manda a llamar SYS_FORK (Esta crea un child process o proceso hijo)
+    int     80h                 ; Crea una interrupcion el microprocesador para ejecutar 
+                                ; el comando anterior
  
-    cmp     eax, 0              ; if eax is zero we are in the child process
-    jz      child               ; jump if eax is zero to child label
+    cmp     eax, 0              ; si el valor de eax es igual a 0 
+    jz      child               ; salta a la etiqueta child
  
 parent:
-    mov     eax, parentMsg      ; inside our parent process move parentMsg into eax
-    call    sprintLF            ; call our string printing with linefeed function
+    mov     eax, parentMsg      ; Apunta el registro eax a la variable parentMsg
+    call    sprintLF            ; Imprime el mensaje con un salto de linea
  
-    call    quit                ; quit the parent process
+    call    quit                ; termina el proceso Padre
  
 child:
-    mov     eax, childMsg       ; inside our child process move childMsg into eax
-    call    sprintLF            ; call our string printing with linefeed function
+    mov     eax, childMsg       ; Apunta el registro eax a la variable childMsg
+    call    sprintLF            ; Imprime el mensaje con un salto de linea
  
-    call    quit                ; quit the child process
+    call    quit                ;  termina el proceso Hijo

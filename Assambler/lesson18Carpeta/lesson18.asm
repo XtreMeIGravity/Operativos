@@ -6,58 +6,64 @@
 %include        'lesson16Func.asm'
  
 SECTION .data
-fizz        db      'Fizz', 0h     ; a message string
-buzz        db      'Buzz', 0h     ; a message string
+fizz        db      'Fizz', 0h     ; Mensaje Fizz
+buzz        db      'Buzz', 0h     ; Mensaje Buzz
  
 SECTION .text
 global  _start
- 
+                            
 _start:
- 
-    mov     esi, 0          ; initialise our checkFizz boolean variable
-    mov     edi, 0          ; initialise our checkBuzz boolean variable
-    mov     ecx, 0          ; initialise our counter variable
+    ;Registros esi ,edi Se utilizan para copiar cadenas y matrices de memoria
+    mov     esi, 0          ; Inicializa checkFizz variable booleana
+    mov     edi, 0          ; Inicializa checkBuzz variable booleana
+    mov     ecx, 0          ; Inicializa la variable del contador
  
 nextNumber:
-    inc     ecx             ; increment our counter variable
+    inc     ecx             ; Incrementa el contador
  
 .checkFizz
-    mov     edx, 0          ; clear the edx register - this will hold our remainder after division
-    mov     eax, ecx        ; move the value of our counter into eax for division
-    mov     ebx, 3          ; move our number to divide by into ebx (in this case the value is 3)
-    div     ebx             ; divide eax by ebx
-    mov     edi, edx        ; move our remainder into edi (our checkFizz boolean variable)
-    cmp     edi, 0          ; compare if the remainder is zero (meaning the counter divides by 3)
-    jne     .checkBuzz      ; if the remainder is not equal to zero jump to local label checkBuzz
-    mov     eax, fizz       ; else move the address of our fizz string into eax for printing
-    call    sprint          ; call our string printing function
+    mov     edx, 0          ; almacena un 0 en decimal en el registro edx para guardar el residuo de la division
+    mov     eax, ecx        ; mueve el valor del contador a eax
+    mov     ebx, 3          ; asigna un valor 3 dec al registro ebx
+    div     ebx             ; el valor del contador sobre el 3 asignado en el registro anterior
+    mov     edi, edx        ; mueve el residuo de la division (este se almacena en edx) y lo almacena
+                            ; en el registro edi
+    cmp     edi, 0          ; compara el residuo con 0 
+    jne     .checkBuzz      ; si no es 0 ahora salta a la etiqueta checkBuzz SALTANDO LA IMPRESION DE FIZZ
+                            ; ya que no es divisible entre 3
+    mov     eax, fizz       ; en caso de que sea 0 quiere decir que si es divisible entre 3 
+                            ; y prepara la impresion moviendo la cadena fizz a el registro eax
+    call    sprint          ; llama  a la funcion sprint (Imprimir cadena)
  
-.checkBuzz:
-    mov     edx, 0          ; clear the edx register - this will hold our remainder after division
-    mov     eax, ecx        ; move the value of our counter into eax for division
-    mov     ebx, 5          ; move our number to divide by into ebx (in this case the value is 5)
-    div     ebx             ; divide eax by ebx
-    mov     esi, edx        ; move our remainder into edi (our checkBuzz boolean variable)
-    cmp     esi, 0          ; compare if the remainder is zero (meaning the counter divides by 5)
-    jne     .checkInt       ; if the remainder is not equal to zero jump to local label checkInt
-    mov     eax, buzz       ; else move the address of our buzz string into eax for printing
-    call    sprint          ; call our string printing function
+.checkBuzz: 
+    mov     edx, 0          ; almacena un 0 en decimal en el registro edx para guardar el residuo de la division
+    mov     eax, ecx        ; mueve el valor del contador a eax
+    mov     ebx, 5           ; asigna un valor 5 dec al registro ebx
+    div     ebx             ; el valor del contador sobre el 5 asignado en el registro anterior
+    mov     esi, edx        ; mueve el residuo de la division (este se almacena en edx) y lo almacena
+                            ; en el registro esi
+    cmp     esi, 0          ; compara el residuo con 0 
+    jne     .checkInt       ; si no es 0 ahora salta a la etiqueta checkInt SALTANDO LA IMPRESION DE BUZZ
+                            ; ya que no es divisible entre 5
+    mov     eax, buzz       ; en caso de que sea 0 quiere decir que si es divisible entre 5 
+                            ; y prepara la impresion moviendo la cadena Buzz a el registro eax
+    call    sprint          ; llama  a la funcion sprint (Imprimir cadena)
  
 .checkInt:
-    cmp     edi, 0          ; edi contains the remainder after the division in checkFizz
-    je     .continue        ; if equal (counter divides by 3) skip printing the integer
-    cmp     esi, 0          ; esi contains the remainder after the division in checkBuzz
-    je     .continue        ; if equal (counter divides by 5) skip printing the integer
-    mov     eax, ecx        ; else move the value in ecx (our counter) into eax for printing
-    call    iprint          ; call our integer printing function
+    cmp     edi, 0          ; compara el residuo con 0 de checkFizz(Divisible entre 3)
+    je     .continue        ; si el residuo es igual a 0 salta a la etiquetaContinue
+    cmp     esi, 0          ; compara el residuo con 0 de checkBuzz(Divisible entre 5)
+    je     .continue        ; si el residuo es igual a 0 salta a la etiquetaContinue
+    mov     eax, ecx        ; en caso de que no se cumplan los anteriores  prepara la impresion moviendo al registro eax
+    call    iprint          ; llama a la funcion iprint(ImprimirEntero)
  
 .continue:
-    mov     eax, 0Ah        ; move an ascii linefeed character into eax
-    push    eax             ; push the address of eax onto the stack for printing
-    mov     eax, esp        ; get the stack pointer (address on the stack of our linefeed char)
-    call    sprint          ; call our string printing function to print a line feed
-    pop     eax             ; pop the stack so we don't waste resources
-    cmp     ecx, 100        ; compare if our counter is equal to 100
-    jne     nextNumber      ; if not equal jump to the start of the loop
+    mov     eax, 0Ah        ; prepara un salto de linea para imprimir
+    push    eax             ; manda el salto de linea al stack
+    mov     eax, esp        ; obteiene el salto de linea almacenado en el stack
+    call    sprint          ; Imprime el salto de linea
+    pop     eax             ; regresa el valor del registro eax guardado en el stack
+    cmp     ecx, 100        ; compara si el contador general es igual a 100
+    jne     nextNumber      ; Si la condicion anterior no se cumple salta al principio incrementando el cotnador
  
-    call    quit            ; else call our quit function
+    call    quit            ; llama a la funcion para terminar el programa

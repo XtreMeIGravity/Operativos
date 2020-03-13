@@ -14,15 +14,15 @@ global  _start
  
 _start:
  
-    mov     ecx, 0777           ; code continues from lesson 22
-    mov     ebx, filename
-    mov     eax, 8
-    int     80h
+    mov     ecx, 0777           ; Establece los permisos de lectura , escrituras y  ejecucion 
+    mov     ebx, filename       ; filename we will create
+    mov     eax, 8              ; llama a sys_creat
+    int     80h                 ; crea una interrupcion para que se ejecute el comando anterior
  
-    mov     edx, 12             ; number of bytes to write - one for each letter of our contents string
-    mov     ecx, contents       ; move the memory address of our contents string into ecx
-    mov     ebx, eax            ; move the file descriptor of the file we created into ebx
-    mov     eax, 4              ; invoke SYS_WRITE (kernel opcode 4)
-    int     80h                 ; call the kernel
+    mov     edx, 12             ; Numero de bytes de nuestra cadena a escribir en el archivo
+    mov     ecx, contents       ; Prepara la cadena para escribirla en el archivo
+    mov     ebx, eax            ; mueve el archivo creado anterior mente a ebx 
+    mov     eax, 4              ; LLama SYS_WRITE para escribir sobre la descripcion almacenada en ebx
+    int     80h                 ; crea una interrupcion para que se ejecute el comando anterior
  
-    call    quit                ; call our quit function
+    call    quit                ; llama a la funcion de terminar el programa

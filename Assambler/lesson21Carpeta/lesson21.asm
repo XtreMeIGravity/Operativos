@@ -6,18 +6,20 @@
 %include        'lesson16Func.asm'
  
 SECTION .data
-msg        db      'Seconds since Jan 01 1970: ', 0h     ; a message string
+msg        db      'Seconds since Jan 01 1970: ', 0h     ; Segundos desde Enero de 1970
  
 SECTION .text
 global  _start
  
 _start:
  
-    mov     eax, msg        ; move our message string into eax for printing
-    call    sprint          ; call our string printing function
+    mov     eax, msg        ; apunta el registro eax al msg
+    call    sprint          ; llama a la funcion sprint
  
-    mov     eax, 13         ; invoke SYS_TIME (kernel opcode 13)
-    int     80h             ; call the kernel
- 
-    call    iprintLF        ; call our integer printing function with linefeed
-    call    quit            ; call our quit function
+    mov     eax, 13         ; llama a SYS_TIME (kernel opcode 13) Este nos devuelve los
+                            ; segundos desde 1 Enero de 1970 en el registro eax
+    int     80h             ; crea una interrupcion en el microprocesador para llamar a la opcion anterior
+
+
+    call    iprintLF        ; Imprime el valor entero con un salto de linea
+    call    quit            ; Finaliza el programa

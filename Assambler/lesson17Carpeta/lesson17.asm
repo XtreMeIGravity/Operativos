@@ -6,42 +6,49 @@
 %include        'lesson16Func.asm'
  
 SECTION .data
-msg1        db      'Jumping to finished label.', 0h        ; a message string
-msg2        db      'Inside subroutine number: ', 0h        ; a message string
-msg3        db      'Inside subroutine "finished".', 0h     ; a message string
+msg1        db      'Jumping to finished label.', 0h        ; Mensaje 1 con un carcater de final de cadena
+msg2        db      'Inside subroutine number: ', 0h        ; Mensaje 2 con un carcater de final de cadena
+msg3        db      'Inside subroutine "finished".', 0h     ; Mensaje 3 con un carcater de final de cadena
  
 SECTION .text
 global  _start
  
 _start:
  
-subrountineOne:
-    mov     eax, msg1       ; move the address of msg1 into eax
-    call    sprintLF        ; call our string printing with linefeed function
-    jmp     .finished       ; jump to the local label under the subrountineOne scope
+subrountineOne:             ; ETIQUETA:Subrutina 1
+    mov     eax, msg1       ; Mueve la direccion de memoria de msg1 a eax 
+    call    sprintLF        ; Llama a la funcion sprintLF la cual requiere que lo que
+                            ; va a imprimir este en  en el registro eax
+    jmp     .finished       ; salta a la etiqueta .finished (en este caso acude a la que este en
+                            ; mas proxima o pertenezca a esta funcion
  
-.finished:
-    mov     eax, msg2       ; move the address of msg2 into eax
-    call    sprint          ; call our string printing function
-    mov     eax, 1          ; move the value one into eax (for subroutine number one)
-    call    iprintLF        ; call our integer printing function with linefeed function
+.finished:                  ; ETIQUETA: .finished
+    mov     eax, msg2       ; mueve la direcion de memoria del msg 2 a el registro eax
+    call    sprint          ; Llama a la funcion sprint ,la cual imprime sin un salto de linea
+                            ; esta cadena inclye "subrutina numero:"
+    mov     eax, 1          ; coloca un 1 dec en el registro eax
+    call    iprintLF        ; Imprime el valor en entero del registro eax
  
-subrountineTwo:
-    mov     eax, msg1       ; move the address of msg1 into eax
-    call    sprintLF        ; call our string print with linefeed function
-    jmp     .finished       ; jump to the local label under the subrountineTwo scope
+subrountineTwo:             ; ETIQUETA:Subrutina 2
+    mov     eax, msg1       ; Mueve la direccion de memoria de msg a eax 
+    call    sprintLF        ; Llama a la funcion sprintLF la cual requiere que lo que
+                            ; va a imprimir este en  en el registro eax
+    jmp     .finished       ; salta a la etiqueta .finished (en este caso acude a la que este en
+                            ; mas proxima o pertenezca a esta funcion
  
-.finished:
-    mov     eax, msg2       ; move the address of msg2 into eax
-    call    sprint          ; call our string printing function
-    mov     eax, 2          ; move the value two into eax (for subroutine number two)
-    call    iprintLF        ; call our integer printing function with linefeed function
+.finished:                  ; ETIQUETA: .finished
+    mov     eax, msg2       ; mueve la direcion de memoria del msg1 2 a el registro eax
+    call    sprint          ; Llama a la funcion sprint ,la cual imprime sin un salto de linea
+                            ; esta cadena inclye "subrutina numero:"
+    mov     eax, 2          ; coloca un 2 dec en el registro eax
+    call    iprintLF        ; Imprime el valor en entero del registro eax
  
-    mov     eax, msg1       ; move the address of msg1 into eax
-    call    sprintLF        ; call our string printing with linefeed function
-    jmp     finishedP        ; jump to the global label finished
+    mov     eax, msg1       ; Mueve la direccion de memoria de msg1 a eax
+    call    sprintLF        ; llama a la funcion imprimir string con salto de linea
+    jmp     finishedP       ; se va a la etiqueta finishedP 
  
 finishedP:
-    mov     eax, msg3       ; move the address of msg3 into eax
-    call    sprintLF        ; call our string printing with linefeed function
-    call    quit            ; call our quit function
+    mov     eax, msg3       ; Mueve la direccion de memoria de msg3 a eax
+    call    sprintLF        ; llama a la funcion imprimir string con salto de linea
+    call    quit            ; llama a la funcion salir , que se encarga de que el programa termine 
+                            ; correctamente

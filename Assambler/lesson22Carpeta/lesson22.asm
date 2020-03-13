@@ -6,16 +6,16 @@
 %include    'lesson16Func.asm'
  
 SECTION .data
-filename db 'readme.txt',       ; the filename to create
+filename db 'readme.txt',       ; el nombre del archivo a crear
  
 SECTION .text
 global  _start
  
 _start:
  
-    mov     ecx, 0777           ; set all permissions to read, write, execute
+    mov     ecx, 0777           ; Establece los permisos de lectura , escrituras y  ejecucion 
     mov     ebx, filename       ; filename we will create
-    mov     eax, 8              ; invoke SYS_CREAT (kernel opcode 8)
-    int     80h                 ; call the kernel
- 
-    call    quit                ; call our quit function
+    mov     eax, 8              ; llama a sys_creat
+    int     80h                 ; crea una interrupcion para que se ejecute el comando anterior
+
+    call    quit                ; llama a la funcion de terminar el programa

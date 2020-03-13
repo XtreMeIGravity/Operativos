@@ -6,15 +6,15 @@
 %include    'lesson16Func.asm'
  
 SECTION .data
-filename db 'readme.txt', 0h    ; the filename to delete
+filename db 'readme.txt', 0h    ; nombre del archivo para borrar
  
 SECTION .text
 global  _start
  
 _start:
  
-    mov     ebx, filename       ; filename we will delete
-    mov     eax, 10             ; invoke SYS_UNLINK (kernel opcode 10)
-    int     80h                 ; call the kernel
+    mov     ebx, filename       ; nombre del archivo  a borrar
+    mov     eax, 10             ; llama SYS_UNLINK (kernel opcode 10) elimina el directorio
+    int     80h                 ; crea una interrupcion en el microprocesador
  
-    call    quit                ; call our quit function
+    call    quit                ; termina el programa
