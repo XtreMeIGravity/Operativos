@@ -1,38 +1,40 @@
 ;------------------------------------------
 ; int atoi(Integer number)
-; Ascii to integer function (atoi)
+; Ascii a Entero
 atoi:
-    push    ebx             ; preserve ebx on the stack to be restored after function runs
-    push    ecx             ; preserve ecx on the stack to be restored after function runs
-    push    edx             ; preserve edx on the stack to be restored after function runs
-    push    esi             ; preserve esi on the stack to be restored after function runs
-    mov     esi, eax        ; move pointer in eax into esi (our number to convert)
-    mov     eax, 0          ; initialise eax with decimal value 0
-    mov     ecx, 0          ; initialise ecx with decimal value 0
+    push    ebx             ; Almacena el valor del registro en el stack
+    push    ecx             ; Almacena el valor del registro en el stack
+    push    edx             ; Almacena el valor del registro en el stack
+    push    esi             ; Almacena el valor del registro en el stack
+    mov     esi, eax        ; mueve el valor del apuntador de eax(numero que deseamos convertir)
+                            ; a esi
+    mov     eax, 0          ; Mete el al registro un valor de 0 a eax
+    mov     ecx, 0          ; Mete el al registro un valor de 0 a ecx
  
 .multiplyLoop:
-    xor     ebx, ebx        ; resets both lower and uppper bytes of ebx to be 0
-    mov     bl, [esi+ecx]   ; move a single byte into ebx register's lower half
-    cmp     bl, 48          ; compare ebx register's lower half value against ascii value 48 (char value 0)
-    jl      .finished       ; jump if less than to label finished
-    cmp     bl, 57          ; compare ebx register's lower half value against ascii value 57 (char value 9)
-    jg      .finished       ; jump if greater than to label finished
+    xor     ebx, ebx        ; Limpia el registro    
+    mov     bl, [esi+ecx]   ; mueve un solo byte a la mitad inferior del byte
+    cmp     bl, 48          ; compara el valor inferior del registro con el valor ascci 48 ( en simbolo equivale a 0)
+    jl      .finished       ; salta a la etiqueta finshied para terminar la funcion si esta es menor
+    cmp     bl, 57          ; compara el mismo valor inferior del registro con el valor ascci 57( en simbolo equivale a 9)
+    jg      .finished       ; salta a la etiqueta finshied para terminar la funcion si esta es menor
  
-    sub     bl, 48          ; convert ebx register's lower half to decimal representation of ascii value
-    add     eax, ebx        ; add ebx to our interger value in eax
-    mov     ebx, 10         ; move decimal value 10 into ebx
-    mul     ebx             ; multiply eax by ebx to get place value
-    inc     ecx             ; increment ecx (our counter register)
-    jmp     .multiplyLoop   ; continue multiply loop
+    sub     bl, 48          ; convierte la cadena de entrada en ascii , le resta 48 para operarlo
+    add     eax, ebx        ; suma el valor del registro ebx + eax
+    mov     ebx, 10         ; mete al registro un valor de 10 en decimal en ebx
+    mul     ebx             ; multiplica ebx por eax y el resultado se almacena en eax
+    inc     ecx             ; incremente el valor de exc
+    jmp     .multiplyLoop   ; salta a la etiqueta multiplityloop
  
 .finished:
-    mov     ebx, 10         ; move decimal value 10 into ebx
-    div     ebx             ; divide eax by value in ebx (in this case 10)
-    pop     esi             ; restore esi from the value we pushed onto the stack at the start
-    pop     edx             ; restore edx from the value we pushed onto the stack at the start
-    pop     ecx             ; restore ecx from the value we pushed onto the stack at the start
-    pop     ebx             ; restore ebx from the value we pushed onto the stack at the start
-    ret
+    mov     ebx, 10         ; mete al registro un valor de 10 en decimal en ebx
+    div     ebx             ; divide el valor ebx sobre eax y el resultado lo guarda en eax
+    pop     esi             ; Restaura los valores almacenados en el stack de forma opuesta a como se metieron
+                            ; esto por la estructura (PILA)
+    pop     edx             
+    pop     ecx             
+    pop     ebx             
+    ret                     ;Regresa a la referencia en el stack al llamar la funcion call
 ;------------------------------------------
 ; void iprint(Integer number)
 ; Integer printing function (itoa)
