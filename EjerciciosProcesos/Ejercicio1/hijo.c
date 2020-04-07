@@ -7,6 +7,6 @@ int main()
 { 
     printf("Soy proceso hijo y mi PID es %d hijo de %d\n",getpid(),getppid());
     char *args[]={"./nieto",NULL}; 
-    execvp(args[0],args);
+    execl(args[0],args[0],args[1]); 
     return 0; 
 } 

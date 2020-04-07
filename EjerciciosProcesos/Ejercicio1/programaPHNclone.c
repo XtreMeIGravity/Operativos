@@ -17,13 +17,12 @@ int main()
         exit(EXIT_FAILURE);
     }
     if((pid1 = clone(hijo, pchild_stack + (1024 * 1024), NULL, NULL)) == 0){
-        printf("Proceso hijo creado con exito");
-    }else{
-        exit(EXIT_FAILURE);
+        //SE CREO CON EXITO//
     }
     wait(NULL);
     free(pchild_stack);//libera la memoria
     /////////////FIN PROCESO HIJO/////////////
+    return 0;
 }
 
 int hijo(void *arg){
@@ -32,11 +31,11 @@ int hijo(void *arg){
     int pid2;
     void *pchild_stack = malloc(1024 * 1024);
     if ( pchild_stack == NULL ) {
-        printf("ERROR: Unable to allocate memory.\n");
+        printf("Error:No hay suficiente espacio en memoria.\n");
         exit(EXIT_FAILURE);
     }
     if((pid2 = clone(nieto, pchild_stack + (1024 * 1024), NULL, NULL)) == 0){
-        printf("Proceso nieto creado con exito");
+        //SE CREO CON EXITO//
     }else{
         exit(EXIT_FAILURE);
     }
