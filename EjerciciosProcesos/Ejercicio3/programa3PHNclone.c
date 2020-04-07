@@ -1,9 +1,7 @@
-
 #include <stdio.h>
 #include <sched.h>
 #include <stdlib.h>
 #include <sys/wait.h>
-
 int hijo(char *arg);
 int nieto(char *arg);
 int main()
@@ -43,8 +41,6 @@ int hijo(char *arg){
     }
     if((pid2 = clone(nieto, pchild_stack + (1024 * 1024), NULL, arg)) == 0){
         //SE CREO CON EXITO//
-    }else{
-        exit(EXIT_FAILURE);
     }
     wait(NULL);
     free(pchild_stack);//libera la memoria

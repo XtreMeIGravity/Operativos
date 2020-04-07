@@ -32,6 +32,6 @@ int main(int argc, char *argv[])
             printf("Soy proceso Padre y mi PID es %d\n",getpid());
         }
     }
- 
+
     return 0;
 }

@@ -19,6 +19,5 @@ int main(int argc, char *argv[])
         wait(&status1);//espera a que termine el proceso padre en este caso del hijo
         printf("Soy proceso Padre y mi PID es %d\n",getpid());
     }
- 
     return 0;
 }

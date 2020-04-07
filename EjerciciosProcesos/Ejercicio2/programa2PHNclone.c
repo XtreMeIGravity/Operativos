@@ -1,11 +1,9 @@
-
 #include <stdio.h>
 #include <sched.h>
 #include <stdlib.h>
 #include <sys/wait.h>
 
-int hijoDER(void *arg);
-int hijoIZQ(void *arg);
+int hijo(char *arg);
 int main()
 {
     printf("Soy proceso Padre y mi PID es %d\n",getpid());
@@ -17,12 +15,12 @@ int main()
         exit(EXIT_FAILURE);
     }
     ////////////////////////////////HIJO1////////////////////////////////
-    if((pid1 = clone(hijoIZQ, pchild_stack + (1024 * 1024), NULL, NULL)) == 0){
-        printf("Proceso hijo creado con exito");
+    if((pid1 = clone(hijo, pchild_stack + (1024 * 1024), NULL, "IZQ")) == 0){
+        //SE CREO CON EXITO//
     }
     ////////////////////////////////HIJO2////////////////////////////////
-    if((pid2 = clone(hijoDER, pchild_stack + (1024 * 1024), NULL, NULL)) == 0){
-        printf("Proceso hijo creado con exito");
+    if((pid2 = clone(hijo, pchild_stack + (1024 * 1024), NULL, "DER")) == 0){
+        //SE CREO CON EXITO//
     }
     //Finliza
     wait(NULL);
@@ -32,12 +30,7 @@ int main()
     return 0;
 }
 
-int hijoIZQ(void *arg){
-    printf("Soy proceso hijo izquierdo y mi PID es %d hijo de %d\n",getpid(),getppid());
-   return 0;
-}
-
-int hijoDER(void *arg){
-    printf("Soy proceso hijo derecho y mi PID es %d hijo de %d\n",getpid(),getppid());
+int hijo(char *arg){
+    printf("Soy proceso hijo %s y mi PID es %d hijo de %d\n",arg,getpid(),getppid());
    return 0;
 }

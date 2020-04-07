@@ -2,7 +2,6 @@
 #include <sys/wait.h> 
 #include <unistd.h>
 #include <stdio.h>
- 
 int main(int argc, char *argv[])
 {
     pid_t pid1, pid2;
@@ -20,6 +19,5 @@ int main(int argc, char *argv[])
         wait(&status1);//espera a que termine el proceso padre en este caso del hijo
         printf("Soy proceso Padre y mi PID es %d\n",getpid());
     }
- 
     return 0;
 }

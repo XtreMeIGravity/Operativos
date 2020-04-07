@@ -12,26 +12,25 @@ int main(int argc, char *argv[])
             printf("Soy proceso nieto IZQ y mi PID es %d hijo de %d\n",getpid(),getppid());
             _exit(1);
         }else{ 
-            wait(&status2);//espera a que termine el proceso padre en este caso del nieto
+            wait(&status2);//espera a que termine el proceso padre en este caso del nieto izq
             printf("Soy proceso hijo IZQ y mi PID es %d hijo de %d\n",getpid(),getppid());
             _exit(1);
         }
     }else{ 
-        wait(&status2);//espera a que termine el proceso padre en este caso del hijo
+        wait(&status2);//espera a que termine el proceso padre en este caso del hijo izq
         if ( (pid3=fork()) == 0 ){ 
             if ( (pid4=fork()) == 0 ){ 
                 printf("Soy proceso nieto DER y mi PID es %d hijo de %d\n",getpid(),getppid());
                 _exit(1);
             }else{ 
-                wait(&status4);//espera a que termine el proceso padre en este caso del nieto
+                wait(&status4);//espera a que termine el proceso padre en este caso del nieto der
                 printf("Soy proceso hijo DER y mi PID es %d hijo de %d\n",getpid(),getppid());
                 _exit(1);
             }
         }else{ 
-            wait(&status3);//espera a que termine el proceso padre en este caso del hijo
+            wait(&status3);//espera a que termine el proceso padre en este caso del hijo der
             printf("Soy proceso Padre y mi PID es %d\n",getpid());
         }
     }
- 
     return 0;
 }
