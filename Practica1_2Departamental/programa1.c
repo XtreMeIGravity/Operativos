@@ -8,9 +8,10 @@ int creaRamaDerTres(int h,int base);
 int main(int argc, char *argv[])
 {
     int n;
+    do{
     printf("Introduce un numero mayor que 1\n");
     scanf("%d",&n);
-    
+    }while(n<2);
     if ( fork() == 0 ){ 
         printf("Soy proceso hijo izquierdo y mi PID es %d hijo de %d\n",getpid(),getppid());
         creaRamaIzqDos(n,1);
