@@ -1,44 +1,88 @@
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
+#include <unistd.h>
+#include <sys/wait.h>
 
-int main(void) {
+#define LEER		0
+#define ESCRIBIR	1
+#define tamBuffer  499   //<---- EL valor de buffer se cambia aqui
+
+int main(int arc, char const *argv[]) {
   FILE *archivo;
   FILE *nuevoArchivo;
-  int caracter;
-
+  int descr[2];	/* Descriptores de E y S de la turbería */
+  int caracter[tamBuffer],auxcaracter[tamBuffer];
   printf("Transferencia de imagen a traves de pipies\n");
 
-  archivo = fopen("typeR.jpg", "r");
-  nuevoArchivo=fopen("typeRhijo.jpg", "w+");
-
- 	if (archivo == NULL)
- 		exit(1);
- 	else{
- 	  printf("\nEl contenido del archivo de prueba es \n\n");printf("\nEl contenido del archivo de prueba es \n\n");
-    while (feof(archivo) == 0){
- 		  caracter=(int)fgetc(archivo);
-
- 		  printf("%c",caracter);
-      //fseek(nuevoArchivo,0,SEEK_END);
-      fprintf(nuevoArchivo,"%c",caracter);
-      //fputc(caracter, nuevoArchivo );
-    }
-    system("PAUSE");
+  if(arc!=3){
+    printf("Error revisar entrada:\nprograma.exe ArchivoOrigen NombreCopia\n");
+    exit(1);
   }
+  
+  archivo = fopen(argv[1], "r");
+  nuevoArchivo=fopen(argv[2], "w+");
+  printf("ArchivoEntrada:%s\n",argv[1]);
+  printf("ArchivoSalida:%s\n",argv[2]);
+  printf("Buffer:%d\n",tamBuffer);
 
+ 	if (archivo == NULL){
+    printf("Error al abrir archivo origen\n");
+    fclose(nuevoArchivo);
+    fclose(archivo);
+ 		exit(1);
+ 	}else{
+    pipe (descr);
+    if (fork () == 0){
+      //ESTA ES LA CONFIGURACION DE LAS TUBERIAS
+      //tuberia del padre hacia hijo
+      close (descr[ESCRIBIR]);
+      do{
+        //ESTA ES LA PARTE DE LA COMUNICACION DE LAS TUBERIAS
+        //tuberia del padre hacia hijo
+        read (descr[LEER], &auxcaracter, sizeof(auxcaracter[0])*tamBuffer);
+        for(int i=0;i<tamBuffer;i++){
+          //Revisa la condicion de parada si esta se cumple finaliza el programa
+          if(auxcaracter[i]==-1){
+            //CERRADO DE LAS TUBERIAS
+            close (descr[LEER]);
+            printf("\nFinalizado hijo\n");
+            //CERRADO ARCHIVO
+            fclose(nuevoArchivo);
+            fclose(archivo);
+            exit(0);
+          }
+          fprintf(nuevoArchivo,"%c",auxcaracter[i]);
+        }
+      }while(1);
+    }else{
+      //ESTA ES LA CONFIGURACION DE LAS TUBERIAS
+      //tuberia del padre hacia hijo
+      close (descr[LEER]);
+      //ESTA ES LA PARTE DE LA COMUNICACION DE LAS TUBERIAS
+      //tuberia del padre hacia hijo
+      for(int i=0;i<tamBuffer;i++){
+        caracter[i]=-1;
+      }
+      int i=0;
+      do{
+        caracter[i%tamBuffer]=(int)fgetc(archivo);  
+        i++;
+        if( ( (i%tamBuffer)==0 && i>0) || feof(archivo)!=0){
+          write (descr[ESCRIBIR], &caracter, sizeof(caracter[0])*tamBuffer);
+          for(int j=0;j<tamBuffer;j++){
+            caracter[j]=-1;
+          }
+        }
+      }while (feof(archivo) == 0);
+      //CERRADO DE LAS TUBERIAS
+      close (descr[ESCRIBIR]);
+      printf("\nYa mande todo\nFinalizado padre\n");
+    }
+  }
+  wait(NULL);
+  //CERRADO ARCHIVO
   fclose(nuevoArchivo);
   fclose(archivo);
 	return 0;
 }
-
-
-int n = something();
-write(pipe_w, &n, sizeof(n));
-
-int n;
-read(pipe_r, &n, sizeof(n));
-
-
-255 216 255 226 11 248 73 67 67 95 80 82 79 70 73 76 69 0 1 1 0 0 11 232 0 0 0 0 2 0 0 0 109 110 116 114 82 71 66 32 88 89 90 32 7 217 0 3 0 27 0 21 0 36 0 31 97 99 115 112 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 246 214 0 1 0 0 0 0 211 45 
-
-0 0 0 0 41 248 61 222 175 242 85 174 120 66 250 228 202 131 57 13 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16 100 101 115 99 0 0 1 68 0 0 0 121 98 88 89 90 0 0 1 192 0 0 0 20 98 84 82 67 0 0 1 212 0 0 8 12 100 109 100 100 0 0 9 224 0 0 0 136 
