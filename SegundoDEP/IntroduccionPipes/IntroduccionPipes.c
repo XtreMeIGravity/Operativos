@@ -1,4 +1,12 @@
-/* pipe.c - Tubería sin nombre entre procesos padre e hijo */
+/* INSTITUTO POLITÉCNICO NACIONAL
+         ESCUELA SUPERIOR DE CÓMPUTO
+           SISTEMAS OPERATIVOS
+              SEMESTRE 2020-2
+                GRUPO: 2CV8
+        ALUMNO:
+          -- LÓPEZ HERNÁNDEZ DAVID
+*/
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>

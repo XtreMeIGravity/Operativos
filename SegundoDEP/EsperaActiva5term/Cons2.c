@@ -1,4 +1,11 @@
-/*
+/* INSTITUTO POLITÉCNICO NACIONAL
+         ESCUELA SUPERIOR DE CÓMPUTO
+           SISTEMAS OPERATIVOS
+              SEMESTRE 2020-2
+                GRUPO: 2CV8
+        ALUMNO:
+          -- LÓPEZ HERNÁNDEZ DAVID
+*/
 Compilar: gcc EsperaActiva.c -lpthread -lrt */
 
 #include <stdio.h>

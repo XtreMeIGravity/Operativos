@@ -1,4 +1,11 @@
-/*
+/*INSTITUTO POLITÉCNICO NACIONAL
+         ESCUELA SUPERIOR DE CÓMPUTO
+           SISTEMAS OPERATIVOS
+              SEMESTRE 2020-2
+                GRUPO: 2CV8
+        ALUMNO:
+          -- LÓPEZ HERNÁNDEZ DAVID
+
 Compilar: gcc EsperaActiva.c -lpthread -lrt */
 
 #include <stdio.h>
@@ -85,8 +92,8 @@ int main(){
             }else if(value2 == 1 && j <stop2){
                 sem_wait( semaforoProductor2 );
                 Memoria[1] = j;
-                j++;
                 printf("\t\t\tProd2: %d\n",j);
+                j++;
                 sem_post( semaforoConsumidor2 );
             }
         }
