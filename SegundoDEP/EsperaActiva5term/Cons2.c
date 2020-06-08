@@ -33,13 +33,6 @@ int main(){
     int i,j;
     i=j=stopCons1;
 
-
-    sem_getvalue(finalizar1, &value1);
-    while(!value1){
-        sem_getvalue(finalizar1, &value1);
-    }
-
-
     sem_wait(finalizar1);
     printf(">>>>>>>>%d             %d<<<<<<\n",i,j);
     int value1,value2;

@@ -54,10 +54,5 @@ int main(){
             sem_post( semaforoConsumidor2 );
         }
     }
-
-    sem_unlink( name1 );
-    sem_unlink( name2 );
-    sem_unlink( name3 );
-    sem_unlink( name4 );
     return 0;   
 }

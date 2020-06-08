@@ -58,15 +58,5 @@ int main(){
     printf(">>>>>>>>%d             %d<<<<<<\n",i,j);
 
     sem_post(finalizar1);
-
-
-    sem_unlink( name1 );
-    sem_unlink( name2 );
-    sem_unlink( name3 );
-    sem_unlink( name4 );
-    sem_unlink( name5 );
-    sem_unlink( name6 );
-
-
     return 0;   
 }
