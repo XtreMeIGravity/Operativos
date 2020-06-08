@@ -1,11 +1,11 @@
 
 #define TAM_MEM 2
 int *Memoria;
-#define stop1 20
-#define stop2 40
-#define stop3 60
-#define stopCons1 30 
-#define stopCons2 60
+#define stop1 3000
+#define stop2 5000
+#define stop3 10000
+#define stopCons1 5000 
+#define stopCons2 10000
 
 int CreaLigaMemoria( void );
 void DestruyeMemoria( int id_Memoria , int *buffer );

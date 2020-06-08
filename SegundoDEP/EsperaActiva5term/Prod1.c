@@ -54,5 +54,6 @@ int main(){
             sem_post( semaforoConsumidor2 );
         }
     }
+    
     return 0;   
 }

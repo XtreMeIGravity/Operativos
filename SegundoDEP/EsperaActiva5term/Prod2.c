@@ -50,8 +50,8 @@ int main(){
         }else if(value2 == 1 && j <stop2){
             sem_wait( semaforoProductor2 );
             Memoria[1] = j;
-            j++;
             printf("\t\t\tProd2: %d\n",j);
+            j++;
             sem_post( semaforoConsumidor2 );
         }
     }
