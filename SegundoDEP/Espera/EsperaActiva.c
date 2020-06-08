@@ -40,7 +40,10 @@ int main(){
         int i,j;
         i=j=0;
         int value1,value2;
-        while(i < stop1 && j < stop1){
+        while(1){
+            if(i==stop1 && j==stop1){
+                break;
+            }
             sem_getvalue(semaforoProductor, &value1);
             sem_getvalue(semaforoProductor2, &value2);
             if(value1 == 1 && i < stop1){
@@ -67,7 +70,10 @@ int main(){
         int i,j;
         i=j=stop1;
         int value1,value2;
-        while(i < stop2 && j < stop2){
+        while(1){
+            if(i==stop2 && j==stop2){
+                break;
+            }
             sem_getvalue(semaforoProductor, &value1);
             sem_getvalue(semaforoProductor2, &value2);
             if(value1 == 1 && i < stop2){
@@ -94,7 +100,10 @@ int main(){
         int i,j;
         i=j=stop2;
         int value1,value2;
-        while(i < stop3 && j < stop3){
+        while(1){
+            if(i==stop3 && j==stop3){
+                break;
+            }
             sem_getvalue(semaforoProductor, &value1);
             sem_getvalue(semaforoProductor2, &value2);
             if(value1 == 1 && i < stop3){
@@ -120,8 +129,12 @@ int main(){
         id = CreaLigaMemoria();
         int i,j;
         i=j=0;
+        printf(">>>>>>>>%d             %d<<<<<<\n",i,j);
         int value1,value2;
-        while(i < stopCons1 && j < stopCons1){
+        while(1){
+            if(i==stopCons1 && j==stopCons1){
+                break;
+            }
             sem_getvalue(semaforoConsumidor, &value1);
             sem_getvalue(semaforoConsumidor2, &value2);
             if(value1 == 1 && i < stopCons1){
@@ -136,6 +149,7 @@ int main(){
                 sem_post( semaforoProductor2 );
             }
         }
+        printf(">>>>>>>>%d             %d<<<<<<\n",i,j);
         sem_unlink( name1 );
         sem_unlink( name2 );
         sem_unlink( name3 );
@@ -145,8 +159,12 @@ int main(){
         id = CreaLigaMemoria();
         int i,j;
         i=j=stopCons1;
+        printf(">>>>>>>>%d             %d<<<<<<\n",i,j);
         int value1,value2;
-        while(i < stopCons2 && j < stopCons2){
+        while(1){
+            if(i==stopCons2 && j==stopCons2){
+                break;
+            }
             sem_getvalue(semaforoConsumidor, &value1);
             sem_getvalue(semaforoConsumidor2, &value2);
             if(value1 == 1 && i < stopCons2){
@@ -161,6 +179,7 @@ int main(){
                 sem_post( semaforoProductor2 );
             }
         }
+        printf(">>>>>>>>%d             %d<<<<<<\n",i,j);
 
         wait(NULL);
         wait(NULL);
