@@ -38,6 +38,21 @@ int main(){
     char *name3 = "consumidor2";
     char *name4 = "productor2";
     sem_t *semaforoConsumidor , *semaforoProductor,*semaforoConsumidor2 , *semaforoProductor2;
+
+        DestruyeMemoria( id , Memoria );
+        sem_unlink( name1 );
+        sem_unlink( name2 );
+        sem_unlink( name3 );
+        sem_unlink( name4 );
+        sem_close( semaforoProductor );
+        sem_destroy( semaforoProductor );
+        sem_close( semaforoConsumidor );
+        sem_destroy( semaforoConsumidor );
+        sem_close( semaforoProductor2 );
+        sem_destroy( semaforoProductor2 );
+        sem_close( semaforoConsumidor2 );
+        sem_destroy( semaforoConsumidor2 );
+        
     semaforoConsumidor = CrearSemaforo( name1 , 0 );
     semaforoProductor = CrearSemaforo( name2 , 1 );
     semaforoConsumidor2 = CrearSemaforo( name3 , 0 );

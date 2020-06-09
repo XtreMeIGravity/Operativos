@@ -6,7 +6,7 @@
 
 #define LEER		0
 #define ESCRIBIR	1
-#define tamBuffer  499   //<---- EL valor de buffer se cambia aqui
+#define tamBuffer  300   //<---- EL valor de buffer se cambia aqui
 
 int main(int arc, char const *argv[]) {
   FILE *archivo;
@@ -41,19 +41,22 @@ int main(int arc, char const *argv[]) {
         //ESTA ES LA PARTE DE LA COMUNICACION DE LAS TUBERIAS
         //tuberia del padre hacia hijo
         read (descr[LEER], &auxcaracter, sizeof(auxcaracter[0])*tamBuffer);
+        printf("Recibi:\n");
         for(int i=0;i<tamBuffer;i++){
-          //Revisa la condicion de parada si esta se cumple finaliza el programa
-          if(auxcaracter[i]==-1){
-            //CERRADO DE LAS TUBERIAS
-            close (descr[LEER]);
-            printf("\nFinalizado hijo\n");
-            //CERRADO ARCHIVO
-            fclose(nuevoArchivo);
-            fclose(archivo);
-            exit(0);
-          }
-          fprintf(nuevoArchivo,"%c",auxcaracter[i]);
+            //Revisa la condicion de parada si esta se cumple finaliza el programa
+            if(auxcaracter[i]==-1){
+                //CERRADO DE LAS TUBERIAS
+                close (descr[LEER]);
+                printf("\nFinalizado hijo\n");
+                //CERRADO ARCHIVO
+                fclose(nuevoArchivo);
+                fclose(archivo);
+                exit(0);
+            }
+            fprintf(nuevoArchivo,"%c",auxcaracter[i]);
+            printf("%d|",auxcaracter[i]);
         }
+        printf("\n");
       }while(1);
     }else{
       //ESTA ES LA CONFIGURACION DE LAS TUBERIAS
@@ -69,10 +72,17 @@ int main(int arc, char const *argv[]) {
         caracter[i%tamBuffer]=(int)fgetc(archivo);  
         i++;
         if( ( (i%tamBuffer)==0 && i>0) || feof(archivo)!=0){
-          write (descr[ESCRIBIR], &caracter, sizeof(caracter[0])*tamBuffer);
-          for(int j=0;j<tamBuffer;j++){
-            caracter[j]=-1;
-          }
+
+            printf("Mande:\n");
+            for(int z=0;z<tamBuffer;z++){
+                printf("%d|",caracter[z]);
+            }
+            printf("\n");
+
+            write (descr[ESCRIBIR], &caracter, sizeof(caracter[0])*tamBuffer);
+            for(int j=0;j<tamBuffer;j++){
+                caracter[j]=-1;
+            }
         }
       }while (feof(archivo) == 0);
       //CERRADO DE LAS TUBERIAS
