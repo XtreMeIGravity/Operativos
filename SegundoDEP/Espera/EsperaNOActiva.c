@@ -6,7 +6,7 @@
         ALUMNO:
           -- LÓPEZ HERNÁNDEZ DAVID
 
-Compilar: gcc EsperaActiva.c -lpthread -lrt */
+Compilar: gcc EsperaNOActiva.c -o EsperaNOActiva.out -lpthread -lrt */
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -21,11 +21,11 @@ Compilar: gcc EsperaActiva.c -lpthread -lrt */
 
 #define TAM_MEM 2
 int *Memoria;
-#define stop1 20
-#define stop2 40
-#define stop3 60
-#define stopCons1 30 
-#define stopCons2 60
+#define stop1 100
+#define stop2 300
+#define stop3 500
+#define stopCons1 250 
+#define stopCons2 500
 
 int CreaLigaMemoria( void );
 void DestruyeMemoria( int id_Memoria , int *buffer );
@@ -39,20 +39,6 @@ int main(){
     char *name4 = "productor2";
     sem_t *semaforoConsumidor , *semaforoProductor,*semaforoConsumidor2 , *semaforoProductor2;
 
-        DestruyeMemoria( id , Memoria );
-        sem_unlink( name1 );
-        sem_unlink( name2 );
-        sem_unlink( name3 );
-        sem_unlink( name4 );
-        sem_close( semaforoProductor );
-        sem_destroy( semaforoProductor );
-        sem_close( semaforoConsumidor );
-        sem_destroy( semaforoConsumidor );
-        sem_close( semaforoProductor2 );
-        sem_destroy( semaforoProductor2 );
-        sem_close( semaforoConsumidor2 );
-        sem_destroy( semaforoConsumidor2 );
-        
     semaforoConsumidor = CrearSemaforo( name1 , 0 );
     semaforoProductor = CrearSemaforo( name2 , 1 );
     semaforoConsumidor2 = CrearSemaforo( name3 , 0 );
@@ -62,15 +48,14 @@ int main(){
         id = CreaLigaMemoria();
         int i,j;
         i=j=0;
-        while(1){
-            if(i==stop1 && j==stop1){
-                break;
-            }else if(sem_wait( semaforoProductor ) == 0 && i < stop1){
+        while(!(i==stop1 && j==stop1)){
+            if(sem_wait( semaforoProductor ) >= 0 && i < stop1){
                 Memoria[0] = i;
                 printf("Prod1: %d\n",i);
                 i++;
                 sem_post( semaforoConsumidor );
-            }else if(sem_wait( semaforoProductor2 ) == 0 && j <stop1){
+            }
+            if(sem_wait( semaforoProductor2 ) >= 0 && j <stop1){
                 Memoria[1] = j;
                 printf("\t\t\tProd1: %d\n",j);
                 j++;
@@ -86,15 +71,14 @@ int main(){
         id = CreaLigaMemoria();
         int i,j;
         i=j=stop1;
-        while(1){
-            if(i==stop2 && j==stop2){
-                break;
-            }else if(sem_wait( semaforoProductor ) == 0 && i < stop2){
+        while(!(i==stop2 && j==stop2)){
+            if(sem_wait( semaforoProductor ) >= 0 && i < stop2){
                 Memoria[0] = i;
                 printf("Prod2: %d\n",i);
                 i++;
                 sem_post( semaforoConsumidor );
-            }else if(sem_wait( semaforoProductor2 ) == 0 && j <stop2){
+            }
+            if(sem_wait( semaforoProductor2 ) >= 0 && j <stop2){
                 Memoria[1] = j;
                 printf("\t\t\tProd2: %d\n",j);
                 j++;
@@ -110,15 +94,14 @@ int main(){
         id = CreaLigaMemoria();
         int i,j;
         i=j=stop2;
-        while(1){
-            if(i==stop3 && j==stop3){
-                break;
-            }else if(sem_wait( semaforoProductor ) == 0 && i < stop3){
+        while(!(i==stop3 && j==stop3)){
+            if(sem_wait( semaforoProductor ) >= 0 && i < stop3){
                 Memoria[0] = i;
                 printf("Prod2: %d\n",i);
                 i++;
                 sem_post( semaforoConsumidor );
-            }else if(sem_wait( semaforoProductor2 ) == 0 && j <stop3){
+            }
+            if(sem_wait( semaforoProductor2 ) >= 0 && j <stop3){
                 Memoria[1] = j;
                 printf("\t\t\tProd2: %d\n",j);
                 j++;
@@ -135,16 +118,13 @@ int main(){
         int i,j;
         i=j=0;
         printf(">>>>>>>>%d             %d<<<<<<\n",i,j);
-        while(1){
-            if(i==stopCons1 && j==stopCons1){
-                break;
-            }
-                if(sem_wait( semaforoConsumidor ) == 0 && i < stopCons1){
+        while(!(i==stopCons1 && j==stopCons1)){
+            if(sem_wait( semaforoConsumidor ) >= 0 && i < stopCons1){
                 printf("Cons1: %d\n",Memoria[0]);
                 i++;
                 sem_post( semaforoProductor );
             }
-            if(sem_wait( semaforoConsumidor2 ) == 0 && j < stopCons1){
+            if(sem_wait( semaforoConsumidor2 ) >= 0 && j < stopCons1){
                 printf("\t\t\tCons1: %d\n",Memoria[1]);
                 j++;
                 sem_post( semaforoProductor2 );
@@ -161,16 +141,13 @@ int main(){
         int i,j;
         i=j=stopCons1;
         printf(">>>>>>>>%d             %d<<<<<<\n",i,j);
-        while(1){
-            if(i==stopCons2 && j==stopCons2){
-                break;
-            }
-            if(sem_wait( semaforoConsumidor ) == 0 && i < stopCons2){
+        while(!(i==stopCons2 && j==stopCons2)){
+            if(sem_wait( semaforoConsumidor ) >= 0 && i < stopCons2){
                 printf("Cons2: %d\n",Memoria[0]);
                 i++;
                 sem_post( semaforoProductor );
             }
-            if(sem_wait( semaforoConsumidor2 ) == 0 && j < stopCons2){
+            if(sem_wait( semaforoConsumidor2 ) >= 0 && j < stopCons2){
                 printf("\t\t\tCons2: %d\n",Memoria[1]);
                 j++;
                 sem_post( semaforoProductor2 );
