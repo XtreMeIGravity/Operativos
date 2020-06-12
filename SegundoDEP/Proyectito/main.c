@@ -19,6 +19,7 @@ int main(){
     int stopDatos=100000;
     int id_mem;
     
+    stopProces(id_mem);
     int pid1,pid2,pid3,pid4,pid5,pid6,pid7;
 
             /* INCIALIZACION DE SEMAOFOROS*/
@@ -79,7 +80,7 @@ int main(){
         wait(NULL);
         wait(NULL);
         stopProces(id_mem);
-        printf("Finalizado con exito");
+        printf("Finalizado con exito\n");
     }
     return 0;
 }

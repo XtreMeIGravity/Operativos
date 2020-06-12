@@ -55,7 +55,9 @@ sem_t
 
 void produce(int num,int id_mem,int stopDatos){
     /*>>>>>>>>>>>>>>>>productor1<<<<<<<<<<<<<<<*/
+    
     id_mem=CreaLigaMemoria();
+
     //PRODUCE 1
     int i,j;
     int value1_z1,value2_z1,value3_z1,value4_z1,value5_z1;
@@ -184,7 +186,7 @@ void produce(int num,int id_mem,int stopDatos){
                 if(j>=stopDatos){
                     sem_wait( sem_p3_z2 );
                     Memoria[7] = -num;
-                    //printf("\t\t\t>>limite<<\n");
+                    printf("\t\t\t>>limite<<\n");
                     j++;
                     sem_post( sem_c3_z2 );
                 }else{
@@ -212,7 +214,7 @@ void produce(int num,int id_mem,int stopDatos){
                 if(j>=stopDatos){
                     sem_wait( sem_p5_z2 );
                     Memoria[9] = -num;
-                    //printf("\t\t\t>>limite<<\n");
+                    printf("\t\t\t>>limite<<\n");
                     j++;
                     sem_post( sem_c5_z2 );
                 }else{
@@ -256,7 +258,7 @@ void consume(int id_mem, int id){
                     sem_wait( sem_c1_z1 );
                     tmp1=Memoria[0];
                     if(tmp1>0){
-                        printf("Cons %d zc=1 bc=1: %d\n",id,tmp1);
+                        printf("Cons %d bc=1: %d\n",id,tmp1);
                         meteValorArchivo(tmp1);
                         sem_post( sem_p1_z1 );
                     }else{
@@ -266,7 +268,7 @@ void consume(int id_mem, int id){
                     sem_wait( sem_c2_z1 );
                     tmp1=Memoria[1];
                     if(tmp1>0){
-                        printf("Cons %d zc=2 bc=1: %d\n",id,tmp1);
+                        printf("Cons %d bc=1: %d\n",id,tmp1);
                         meteValorArchivo(tmp1);
                         sem_post( sem_p2_z1 );
                     }else{
@@ -277,7 +279,7 @@ void consume(int id_mem, int id){
                     sem_wait( sem_c3_z1 );
                     tmp1=Memoria[2];
                     if(tmp1>0){
-                        printf("Cons %d zc=3 bc=1: %d\n",id,tmp1);
+                        printf("Cons %d bc=1: %d\n",id,tmp1);
                         meteValorArchivo(tmp1);
                         sem_post( sem_p3_z1 );
                     }else{
@@ -288,7 +290,7 @@ void consume(int id_mem, int id){
                     sem_wait( sem_c4_z1 );
                     tmp1=Memoria[3];
                     if(tmp1>0){
-                        printf("Cons %d zc=4 bc=1: %d\n",id,tmp1);
+                        printf("Cons %d bc=1: %d\n",id,tmp1);
                         meteValorArchivo(tmp1);
                         sem_post( sem_p4_z1 );
                     }else{
@@ -298,7 +300,7 @@ void consume(int id_mem, int id){
                     sem_wait( sem_c5_z1 );
                     tmp1=Memoria[4];
                     if(tmp1>0){
-                        printf("Cons %d zc=5 bc=1: %d\n",id,tmp1);
+                        printf("Cons %d bc=1: %d\n",id,tmp1);
                         meteValorArchivo(tmp1);
                         sem_post( sem_p5_z1 );
                     }else{
@@ -320,7 +322,7 @@ void consume(int id_mem, int id){
                     sem_wait( sem_c1_z2 );
                     tmp2=Memoria[5];
                     if(tmp2>0){
-                        printf("\t\t\tCons %d zc=1 bc=2: %d\n",id,tmp2);
+                        printf("\t\t\tCons %d bc=2: %d\n",id,tmp2);
                         meteValorArchivo(tmp2);
                         sem_post( sem_p1_z2 );
                     }else{
@@ -330,7 +332,7 @@ void consume(int id_mem, int id){
                     sem_wait( sem_c2_z2 );
                     tmp2=Memoria[6];
                     if(tmp2<0){
-                        printf("\t\t\tCons %d zc=2 bc=2: %d\n",id,tmp2);
+                        printf("\t\t\tCons %d bc=2: %d\n",id,tmp2);
                         meteValorArchivo(tmp2);
                         sem_post( sem_p2_z2 );
                     }else{
@@ -350,7 +352,7 @@ void consume(int id_mem, int id){
                     sem_wait( sem_c4_z2 );
                     tmp2=Memoria[8];
                     if(tmp2>0){
-                        printf("\t\t\tCons %d zc=4 bc=2: %d\n",id,tmp2);
+                        printf("\t\t\tCons %d bc=2: %d\n",id,tmp2);
                         meteValorArchivo(tmp2);
                         sem_post( sem_p4_z2 );
                     }else{
@@ -360,7 +362,7 @@ void consume(int id_mem, int id){
                     sem_wait( sem_c5_z2 );
                     tmp2=Memoria[9];
                     if(tmp2>0){
-                        printf("\t\t\tCons %d zc=5 bc=2: %d\n",id,tmp2);
+                        printf("\t\t\tCons %d bc=2: %d\n",id,tmp2);
                         meteValorArchivo(tmp2);
                         sem_post( sem_p5_z2 );
                     }else{
