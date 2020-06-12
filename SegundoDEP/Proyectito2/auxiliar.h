@@ -1,6 +1,6 @@
 
 //MEMORIA//
-#define TAM_MEM 10
+#define TAM_MEM 12
 int *Memoria;
 
 int CreaLigaMemoria( void );
@@ -69,24 +69,13 @@ sem_t
 *sem_p4_b2,*sem_c4_b2;
 
 void produce(int num,int id_mem,int stopDatos){
-    id_mem = CreaLigaMemoria();
     //PRODUCE 
     int i=0,j=0;
     int value1_z1,value2_z1,value3_z1,value4_z1,value5_z1;
     int value1_z2,value2_z2,value3_z2,value4_z2,value5_z2;
-    int val1,val2;
     while(1){
         ////>>> BLOQUE CRITICO 1 <<<////
-        if(num==1){
-            sem_getvalue(sem_p1_b1,&val1);
-        }else if(num==2){
-            sem_getvalue(sem_p2_b1,&val1);
-        }else if(num==3){
-            sem_getvalue(sem_p3_b1,&val1);
-        }else if(num==4){
-            sem_getvalue(sem_p4_b1,&val1);
-        }
-        if(val1==1){
+        if(i <= stopDatos ){
             if(num==1){
                 sem_wait(sem_p1_b1);
             }else if(num==2){
@@ -96,67 +85,80 @@ void produce(int num,int id_mem,int stopDatos){
             }else if(num==4){
                 sem_wait(sem_p4_b1);
             }
-            if(i <= stopDatos ){
-                sem_getvalue(sem_p1_z1, &value1_z1);
-                sem_getvalue(sem_p2_z1, &value2_z1);
-                sem_getvalue(sem_p3_z1, &value3_z1);
-                sem_getvalue(sem_p4_z1, &value4_z1);
-                sem_getvalue(sem_p5_z1, &value5_z1);
-                if(value1_z1 == 1 && i <= stopDatos){
+            sem_getvalue(sem_p1_z1, &value1_z1);
+            sem_getvalue(sem_p2_z1, &value2_z1);
+            sem_getvalue(sem_p3_z1, &value3_z1);
+            sem_getvalue(sem_p4_z1, &value4_z1);
+            sem_getvalue(sem_p5_z1, &value5_z1);
+            if(value1_z1 == 1 && i <= stopDatos){
+                if(i>=stopDatos){
                     sem_wait( sem_p1_z1 );
-                    if(i==stopDatos){
-                        Memoria[0] = -num;
-                        //printf(">>limite<<\n");
-                    }else{
-                        Memoria[0] = num;
-                        printf("Prod %d: zc=1  Bc=1: %d\n",num,i);
-                        i++;
-                        sem_post( sem_c1_z1 );
-                    }
-                }else if(value2_z1 == 1 && i <= stopDatos){
+                    Memoria[0] = -num;
+                    printf(">>limite<<\n");
+                    i++;
+                    sem_post( sem_c1_z1 );
+                }else{
+                    sem_wait( sem_p1_z1 );
+                    Memoria[0] = num;
+                    printf("Prod %d: zc=1 bc=1: %d\n",num,i);
+                    i++;
+                    sem_post( sem_c1_z1 );
+                }
+            }else if(value2_z1 == 1 && i <= stopDatos){
+                if(i>=stopDatos){
                     sem_wait( sem_p2_z1 );
-                    if(i==stopDatos){
-                        Memoria[1] = -num;
-                        //printf(">>limite<<\n");
-                    }else{
-                        Memoria[1] = num;
-                        printf("Prod %d: zc=2  Bc=1: %d\n",num,i);
-                        i++;
-                        sem_post( sem_c2_z1 );
-                    }
-                }else if(value3_z1 == 1 && i <= stopDatos){
-                    sem_wait( sem_p3_z1 );
-                    if(i==stopDatos){
-                        Memoria[2] = -num;
-                        //printf(">>limite<<\n");
-                    }else{
-                        Memoria[2] = num;
-                        printf("Prod %d: zc=3  Bc=1: %d\n",num,i);
-                        i++;
-                        sem_post( sem_c3_z1 );
-                    }
-                }else if(value4_z1 == 1 && i <= stopDatos){
+                    Memoria[1] = -num;
+                    printf(">>limite<<\n");
+                    i++;
+                    sem_post( sem_c2_z1 );
+                }else{
+                    sem_wait( sem_p2_z1 );
+                    Memoria[1] = num;
+                    printf("Prod %d: zc=2 bc=1: %d\n",num,i);
+                    i++;
+                    sem_post( sem_c2_z1 );
+                }
+            }else if(value4_z1 == 1 && i <= stopDatos){
+                if(i>=stopDatos){
                     sem_wait( sem_p4_z1 );
-                    if(i==stopDatos){
-                        Memoria[3] = -num;
-                        //printf(">>limite<<\n");
-                    }else{
-                        Memoria[3] = num;
-                        printf("Prod %d: zc=4  Bc=1: %d\n",num,i);
-                        i++;
-                        sem_post( sem_c4_z1 );
-                    }
-                }else if(value5_z1 == 1 &&  i <= stopDatos){
+                    Memoria[3] = -num;
+                    printf(">>limite<<\n");
+                    i++;
+                    sem_post( sem_c4_z1 );
+                }else{
+                    sem_wait( sem_p4_z1 );
+                    Memoria[3] = num;
+                    printf("Prod %d: zc=4 bc=1: %d\n",num,i);
+                    i++;
+                    sem_post( sem_c4_z1 );
+                }
+            }else if(value5_z1 == 1 &&  i <= stopDatos){
+                if(i>=stopDatos){
                     sem_wait( sem_p5_z1 );
-                    if(i==stopDatos){
-                        Memoria[4] = -num;
-                        //printf(">>limite<<\n");
-                    }else{
-                        Memoria[4] = num;
-                        printf("Prod %d: zc=5  Bc=1: %d\n",num,i);
-                        i++;
-                        sem_post( sem_c5_z1 );
-                    }
+                    Memoria[4] = -num;
+                    printf(">>limite<<\n");
+                    i++;
+                    sem_post( sem_c5_z1 );
+                }else{
+                    sem_wait( sem_p5_z1 );
+                    Memoria[4] = num;
+                    printf("Prod %d: zc=5 bc=1: %d\n",num,i);
+                    i++;
+                    sem_post( sem_c5_z1 );
+                }
+            }else if(value3_z1 == 1 && i <= stopDatos){
+                if(i>=stopDatos){
+                    sem_wait( sem_p3_z1 );
+                    Memoria[2] = -num;
+                    printf(">>limite<<\n");
+                    i++;
+                    sem_post( sem_c3_z1 );
+                }else{
+                    sem_wait( sem_p3_z1 );
+                    Memoria[2] = num;
+                    printf("Prod %d: zc=3 bc=1: %d\n",num,i);
+                    i++;
+                    sem_post( sem_c3_z1 );
                 }
             }
             if(num==1){
@@ -170,16 +172,7 @@ void produce(int num,int id_mem,int stopDatos){
             }
         }
         ////>>> BLOQUE CRITICO 2 <<<////
-        if(num==1){
-            sem_getvalue(sem_p1_b2,&val2);
-        }else if(num==2){
-            sem_getvalue(sem_p2_b2,&val2);
-        }else if(num==3){
-            sem_getvalue(sem_p3_b2,&val2);
-        }else if(num==4){
-            sem_getvalue(sem_p4_b2,&val2);
-        }
-        if(val2==1){
+        if(j <= stopDatos ){
             if(num==1){
                 sem_wait(sem_p1_b2);
             }else if(num==2){
@@ -189,71 +182,80 @@ void produce(int num,int id_mem,int stopDatos){
             }else if(num==4){
                 sem_wait(sem_p4_b2);
             }
-            if(j <= stopDatos ){
-                sem_getvalue(sem_p1_z2, &value1_z2);
-                sem_getvalue(sem_p2_z2, &value2_z2);
-                sem_getvalue(sem_p3_z2, &value3_z2);
-                sem_getvalue(sem_p4_z2, &value4_z2);
-                sem_getvalue(sem_p5_z2, &value5_z2);
-                if(value1_z2 == 1 && j <= stopDatos){
+            sem_getvalue(sem_p1_z2, &value1_z2);
+            sem_getvalue(sem_p2_z2, &value2_z2);
+            sem_getvalue(sem_p3_z2, &value3_z2);
+            sem_getvalue(sem_p4_z2, &value4_z2);
+            sem_getvalue(sem_p5_z2, &value5_z2);
+            if(value1_z2 == 1 && j <= stopDatos){
+                if(j>=stopDatos){
                     sem_wait( sem_p1_z2 );
-                    if(j==stopDatos){
-                        Memoria[5] = -num;
-                        //printf("\t\t\t>>limite<<\n");
-                    }else{
-                        Memoria[5] = num;
-                        printf("\t\t\tProd %d: zc=1  Bc=2: %d\n",num,j);
-                        j++;
-                        sem_post( sem_c1_z2 );
-                    }
-                }else if(value2_z2 == 1 && j <= stopDatos){
+                    Memoria[5] = -num;
+                    printf("\t\t\t>>limite<<\n");
+                    j++;
+                    sem_post( sem_c1_z2 );
+                }else{
+                    sem_wait( sem_p1_z2 );
+                    Memoria[5] = num;
+                    printf("\t\t\tProd %d: zc=1 bc=2: %d\n",num,j);
+                    j++;
+                    sem_post( sem_c1_z2 );
+                }
+            }else if(value2_z2 == 1 && j <= stopDatos){
+                if(j>=stopDatos){
                     sem_wait( sem_p2_z2 );
-                    if(j==stopDatos){
-                        Memoria[6] = -num;
-                        //printf("\t\t\t>>limite<<\n");
-                    }else{
-                        Memoria[6] = num;
-                        printf("\t\t\tProd %d: zc=2  Bc=2: %d\n",num,j);
-                        j++;
-                        sem_post( sem_c2_z2 );
-                    }
-                    
-                }else if(value3_z2 == 1 && j <= stopDatos){
-                    sem_wait( sem_p3_z2 );
-                    if(j==stopDatos){
-                        Memoria[7] = -num;
-                        //printf("\t\t\t>>limite<<\n");
-                    }else{
-                        Memoria[7] = num;
-                        printf("\t\t\tProd %d: zc=3  Bc=2: %d\n",num,j);
-                        j++;
-                        sem_post( sem_c3_z2 );
-                    }
-                    
-                }else if(value4_z2 == 1 && j <= stopDatos){
+                    Memoria[6] = -num;
+                    printf("\t\t\t>>limite<<\n");
+                    j++;
+                    sem_post( sem_c2_z2 );
+                }else{
+                    sem_wait( sem_p2_z2 );
+                    Memoria[6] = num;
+                    printf("\t\t\tProd %d: zc=2 bc=2: %d\n",num,j);
+                    j++;
+                    sem_post( sem_c2_z2 );
+                }
+            }else if(value4_z2 == 1 && j <= stopDatos){
+                if(j>=stopDatos){
                     sem_wait( sem_p4_z2 );
-                    if(j==stopDatos){
-                        Memoria[8] = -num;
-                        //printf("\t\t\t>>limite<<\n");
-                    }else{
-                        Memoria[8] = num;
-                        printf("\t\t\tProd %d: zc=4  Bc=2: %d\n",num,j);
-                        j++;
-                        sem_post( sem_c4_z2 );
-                    }
-                    
-                }else if(value5_z2 == 1 && j <= stopDatos){
+                    Memoria[8] = -num;
+                    printf("\t\t\t>>limite<<\n");
+                    j++;
+                    sem_post( sem_c4_z2 );
+                }else{
+                    sem_wait( sem_p4_z2 );
+                    Memoria[8] = num;
+                    printf("\t\t\tProd %d: zc=4 bc=2: %d\n",num,j);
+                    j++;
+                    sem_post( sem_c4_z2 );
+                }
+            }else if(value5_z2 == 1 &&  j <= stopDatos){
+                if(j>=stopDatos){
                     sem_wait( sem_p5_z2 );
-                    if(j==stopDatos){
-                        Memoria[9] = -num;
-                        //printf("\t\t\t>>limite<<\n");
-                    }else{
-                        Memoria[9] = num;
-                        printf("\t\t\tProd %d: zc=5  Bc=2: %d\n",num,j);
-                        j++;
-                        sem_post( sem_c5_z2 );
-                    }
-                    
+                    Memoria[9] = -num;
+                    printf("\t\t\t>>limite<<\n");
+                    j++;
+                    sem_post( sem_c5_z2 );
+                }else{
+                    sem_wait( sem_p5_z2 );
+                    Memoria[9] = num;
+                    printf("\t\t\tProd %d: zc=5 bc=2: %d\n",num,j);
+                    j++;
+                    sem_post( sem_c5_z2 );
+                }
+            }else if(value3_z2 == 1 && j <= stopDatos){
+                if(j>=stopDatos){
+                    sem_wait( sem_p3_z2 );
+                    Memoria[7] = -num;
+                    printf("\t\t\t>>limite<<\n");
+                    j++;
+                    sem_post( sem_c3_z2 );
+                }else{
+                    sem_wait( sem_p3_z2 );
+                    Memoria[7] = num;
+                    printf("\t\t\tProd %d: zc=3 bc=2: %d\n",num,j);
+                    j++;
+                    sem_post( sem_c3_z2 );
                 }
             }
             if(num==1){
@@ -268,30 +270,21 @@ void produce(int num,int id_mem,int stopDatos){
         }
         ///////////////////////////////
         if(j>stopDatos && i>stopDatos){
-            unlinkSemaforos();
-            _exit(0);
             break;
         }
     }
+
+    /*unlinkSemaforos();
+    _exit(0);*/
 }
 void consume(int id_mem, int id){
     id_mem = CreaLigaMemoria();
     int value1_z1,value2_z1,value3_z1,value4_z1,value5_z1;
     int value1_z2,value2_z2,value3_z2,value4_z2,value5_z2;
-    int val1,val2;
     int tmp1=3, tmp2=3;
     while(1){
         ////>>> BLOQUE CRITICO 1 <<<////
-        if(id==1){
-            sem_getvalue(sem_c1_b1,&val1);
-        }else if(id==2){
-            sem_getvalue(sem_c2_b1,&val1);
-        }else if(id==3){
-            sem_getvalue(sem_c3_b1,&val1);
-        }else if(id==4){
-            sem_getvalue(sem_c4_b1,&val1);
-        }
-        if(val1==1){
+        if(tmp1>0 ){
             if(id==1){
                 sem_wait(sem_c1_b1);
             }else if(id==2){
@@ -301,56 +294,70 @@ void consume(int id_mem, int id){
             }else if(id==4){
                 sem_wait(sem_c4_b1);
             }
-            if(tmp1>0){
-                //Bloque 1
-                sem_getvalue(sem_c1_z1, &value1_z1);
-                sem_getvalue(sem_c2_z1, &value2_z1);
-                sem_getvalue(sem_c3_z1, &value3_z1);
-                sem_getvalue(sem_c4_z1, &value4_z1);
-                sem_getvalue(sem_c5_z1, &value5_z1);
-                if(value1_z1 == 1){
-                    sem_wait( sem_c1_z1 );
-                    tmp1=Memoria[0];
-                    if(tmp1>0){
-                        printf("Cons %d zc=1 bc=1: %d\n",id,tmp1);
-                        meteValorArchivo(tmp1);
-                    }
+            //Bloque 1
+            sem_getvalue(sem_c1_z1, &value1_z1);
+            sem_getvalue(sem_c2_z1, &value2_z1);
+            sem_getvalue(sem_c4_z1, &value4_z1);
+            sem_getvalue(sem_c5_z1, &value5_z1);
+            sem_getvalue(sem_c3_z1, &value3_z1);
+            //Zona critica
+            if(value1_z1 == 1){
+                sem_wait( sem_c1_z1 );
+                tmp1=Memoria[0];
+                if(tmp1>0){
+                    printf("Cons %d zc=1 bc=1: %d\n",id,tmp1);
+                    meteValorArchivo(tmp1);
                     sem_post( sem_p1_z1 );
-                }else if(value2_z1 == 1 ){
-                    sem_wait( sem_c2_z1 );
-                    tmp1=Memoria[1];
-                    if(tmp1>0){
-                        printf("Cons %d zc=2 bc=1: %d\n",id,tmp1);
-                        meteValorArchivo(tmp1);
-                    }
+                }else{
+                    Memoria[10]++;
+                    sem_post( sem_p1_z1 );
+                }
+            }else if(value2_z1 == 1 ){
+                sem_wait( sem_c2_z1 );
+                tmp1=Memoria[1];
+                if(tmp1>0){
+                    printf("Cons %d zc=2 bc=1: %d\n",id,tmp1);
+                    meteValorArchivo(tmp1);
                     sem_post( sem_p2_z1 );
-                }else if(value3_z1 == 1 ){
-                    sem_wait( sem_c3_z1 );
-                    tmp1=Memoria[2];
-                    if(tmp1>0){
-                        printf("Cons %d zc=3 bc=1: %d\n",id,tmp1);
-                        meteValorArchivo(tmp1);
-                    }
-                    sem_post( sem_p3_z1 );
-                }else if(value4_z1 == 1 ){
-                    sem_wait( sem_c4_z1 );
-                    tmp1=Memoria[3];
-                    if(tmp1>0){
-                        printf("Cons %d zc=4 bc=1: %d\n",id,tmp1);
-                        meteValorArchivo(tmp1);
-                        sem_post( sem_p4_z1 );
-                    }
+                }else{
+                    Memoria[10]++;
+                    sem_post( sem_p2_z1 );
+                }
+                    
+            }else if(value4_z1 == 1 ){
+                sem_wait( sem_c4_z1 );
+                tmp1=Memoria[3];
+                if(tmp1>0){
+                    printf("Cons %d zc=4 bc=1: %d\n",id,tmp1);
+                    meteValorArchivo(tmp1);
                     sem_post( sem_p4_z1 );
-                }else if(value5_z1 == 1 ){
-                    sem_wait( sem_c5_z1 );
-                    tmp1=Memoria[4];
-                    if(tmp1>0){
-                        printf("Cons %d zc=5 bc=1: %d\n",id,tmp1);
-                        meteValorArchivo(tmp1);
-                        sem_post( sem_p5_z1 );
-                    }
+                }else{
+                    Memoria[10]++;
+                    sem_post( sem_p4_z1 );
+                }
+            }else if(value5_z1 == 1 ){
+                sem_wait( sem_c5_z1 );
+                tmp1=Memoria[4];
+                if(tmp1>0){
+                    printf("Cons %d zc=5 bc=1: %d\n",id,tmp1);
+                    meteValorArchivo(tmp1);
+                    sem_post( sem_p5_z1 );
+                }else{
+                    Memoria[10]++;
                     sem_post( sem_p5_z1 );
                 }
+            }else if(value3_z1 == 1 ){
+                sem_wait( sem_c3_z1 );
+                tmp1=Memoria[2];
+                if(tmp1>0){
+                    printf("Cons %d zc=3 bc=1: %d\n",id,tmp1);
+                    meteValorArchivo(tmp1);
+                    sem_post( sem_p3_z1 );
+                }else{
+                    Memoria[10]++;
+                    sem_post( sem_p3_z1 );
+                }
+                    
             }
             if(id==1){
                 sem_post(sem_p1_b1);
@@ -362,18 +369,8 @@ void consume(int id_mem, int id){
                 sem_post(sem_p4_b1);
             }
         }
-
         ////>>> BLOQUE CRITICO 2 <<<////
-        if(id==1){
-            sem_getvalue(sem_c1_b2,&val2);
-        }else if(id==2){
-            sem_getvalue(sem_c2_b2,&val2);
-        }else if(id==3){
-            sem_getvalue(sem_c3_b2,&val2);
-        }else if(id==4){
-            sem_getvalue(sem_c4_b2,&val2);
-        }
-        if(val2==1){
+        if(tmp2>0){
             if(id==1){
                 sem_wait(sem_c1_b2);
             }else if(id==2){
@@ -383,53 +380,70 @@ void consume(int id_mem, int id){
             }else if(id==4){
                 sem_wait(sem_c4_b2);
             }
-            if(tmp2>0){
-                sem_getvalue(sem_c1_z2, &value1_z2);
-                sem_getvalue(sem_c2_z2, &value2_z2);
-                sem_getvalue(sem_c3_z2, &value3_z2);
-                sem_getvalue(sem_c4_z2, &value4_z2);
-                sem_getvalue(sem_c5_z2, &value5_z2);
-                if(value1_z2 == 1  ){
-                    sem_wait( sem_c1_z2 );
-                    tmp2=Memoria[5];
-                    if(tmp2>0){
-                        printf("\t\t\tCons %d zc=1 bc=2: %d\n",id,tmp2);
-                        meteValorArchivo(tmp2);
-                    }
+            //Bloque 1
+            sem_getvalue(sem_c1_z2, &value1_z2);
+            sem_getvalue(sem_c2_z2, &value2_z2);
+            sem_getvalue(sem_c4_z2, &value4_z2);
+            sem_getvalue(sem_c5_z2, &value5_z2);
+            sem_getvalue(sem_c3_z2, &value3_z2);
+            //Zona critica
+            if(value1_z2 == 1){
+                sem_wait( sem_c1_z2 );
+                tmp2=Memoria[5];
+                if(tmp2>0){
+                    printf("\t\t\tCons %d zc=1 bc=2: %d\n",id,tmp2);
+                    meteValorArchivo(tmp2);
                     sem_post( sem_p1_z2 );
-                }else if(value2_z2 == 1 ){
-                    sem_wait( sem_c2_z2 );
-                    tmp2=Memoria[6];
-                    if(tmp2<0){
-                        printf("\t\t\tCons %d zc=2 bc=2: %d\n",id,tmp2);
-                        meteValorArchivo(tmp2);
-                    }
+                }else{
+                    Memoria[10]++;
+                    sem_post( sem_p1_z2 );
+                }
+            }else if(value2_z2 == 1 ){
+                sem_wait( sem_c2_z2 );
+                tmp2=Memoria[6];
+                if(tmp2>0){
+                    printf("\t\t\tCons %d zc=2 bc=2: %d\n",id,tmp2);
+                    meteValorArchivo(tmp2);
                     sem_post( sem_p2_z2 );
-                }else if(value3_z2 == 1 ){
-                    sem_wait( sem_c3_z2 );
-                    tmp2=Memoria[7];
-                    if(tmp2>0){
-                        printf("\t\t\tCons %d zc=3 bc=2: %d\n",id,tmp2);
-                        meteValorArchivo(tmp2);
-                    }
-                    sem_post( sem_p3_z2 );
-                }else if(value4_z2 == 1 ){
-                    sem_wait( sem_c4_z2 );
-                    tmp2=Memoria[8];
-                    if(tmp2>0){
-                        printf("\t\t\tCons %d zc=4 bc=2: %d\n",id,tmp2);
-                        meteValorArchivo(tmp2);
-                    }
+                }else{
+                    Memoria[10]++;
+                    sem_post( sem_p2_z2 );
+                }
+                    
+            }else if(value4_z2 == 1 ){
+                sem_wait( sem_c4_z2 );
+                tmp2=Memoria[8];
+                if(tmp2>0){
+                    printf("\t\t\tCons %d zc=4 bc=2: %d\n",id,tmp2);
+                    meteValorArchivo(tmp2);
                     sem_post( sem_p4_z2 );
-                }else if(value5_z2 == 1 ){
-                    sem_wait( sem_c5_z2 );
-                    tmp2=Memoria[9];
-                    if(tmp2>0){
-                        printf("\t\t\tCons %d zc=5 bc=2: %d\n",id,tmp2);
-                        meteValorArchivo(tmp2);
-                    }
+                }else{
+                    Memoria[10]++;
+                    sem_post( sem_p4_z2 );
+                }
+            }else if(value5_z2 == 1 ){
+                sem_wait( sem_c5_z2 );
+                tmp2=Memoria[9];
+                if(tmp2>0){
+                    printf("\t\t\tCons %d zc=5 bc=2: %d\n",id,tmp2);
+                    meteValorArchivo(tmp2);
+                    sem_post( sem_p5_z2 );
+                }else{
+                    Memoria[10]++;
                     sem_post( sem_p5_z2 );
                 }
+            }else if(value3_z2 == 1 ){
+                sem_wait( sem_c3_z2 );
+                tmp2=Memoria[7];
+                if(tmp2>0){
+                    printf("\t\t\tCons %d zc=3 bc=2: %d\n",id,tmp2);
+                    meteValorArchivo(tmp2);
+                    sem_post( sem_p3_z2 );
+                }else{
+                    Memoria[10]++;
+                    sem_post( sem_p3_z2 );
+                }
+                    
             }
             if(id==1){
                 sem_post(sem_p1_b2);
@@ -441,15 +455,12 @@ void consume(int id_mem, int id){
                 sem_post(sem_p4_b2);
             }
         }
-        if(tmp1<0 && tmp2<0){
-            printf(">>>>>%d<<<<<",id);
-            unlinkSemaforos();
+        if(Memoria[10]>=8){
+        //if(tmp1<0 && tmp2<0){
             break;
         }
     }
-    if(id!=4){
-        _exit(0);
-    }
+    /*unlinkSemaforos();*/
 }
 void LimpiaArchivos(){
     FILE *f1,*f2,*f3,*f4;
@@ -496,15 +507,6 @@ void meteValorArchivo(int i){
     }
 }
 void unlinkSemaforos(){
-    //
-    sem_unlink( name_c1_b1 );sem_unlink( name_c1_b2 );
-    sem_unlink( name_c2_b1 );sem_unlink( name_c2_b2 );
-    sem_unlink( name_c3_b1 );sem_unlink( name_c3_b2 );
-    sem_unlink( name_c4_b1 );sem_unlink( name_c4_b2 );
-    sem_unlink( name_p1_b1 );sem_unlink( name_p1_b2 );
-    sem_unlink( name_p2_b1 );sem_unlink( name_p2_b2 );
-    sem_unlink( name_p3_b1 );sem_unlink( name_p3_b2 );
-    sem_unlink( name_p4_b1 );sem_unlink( name_p4_b2 );
     //archivos
     sem_unlink( name_sem_f1 );
     sem_unlink( name_sem_f2 );
@@ -532,38 +534,38 @@ void unlinkSemaforos(){
     sem_unlink( name_sem_p3_z2 );
     sem_unlink( name_sem_p4_z2 );
     sem_unlink( name_sem_p5_z2 );
+    //
+    sem_unlink( name_c1_b1 );
+    sem_unlink( name_c1_b2 );
+    sem_unlink( name_c2_b1 );
+    sem_unlink( name_c2_b2 );
+    sem_unlink( name_c3_b1 );
+    sem_unlink( name_c3_b2 );
+    sem_unlink( name_c4_b1 );
+    sem_unlink( name_c4_b2 );
+    sem_unlink( name_p1_b1 );
+    sem_unlink( name_p1_b2 );
+    sem_unlink( name_p2_b1 );
+    sem_unlink( name_p2_b2 );
+    sem_unlink( name_p3_b1 );
+    sem_unlink( name_p3_b2 );
+    sem_unlink( name_p4_b1 );
+    sem_unlink( name_p4_b2 );
 }
 
 void stopProces(int id_mem){
     DestruyeMemoria(id_mem, Memoria);//Desyruye la memoria
     unlinkSemaforos();//UnlinkSemaforos 
-    /**/
-    sem_close( sem_c1_b1 );sem_close( sem_c1_b2 );
-    sem_destroy( sem_c1_b1 );sem_destroy( sem_c1_b2 );
-    sem_close( sem_c2_b1 );sem_close( sem_c2_b2 );
-    sem_destroy( sem_c2_b1 );sem_destroy( sem_c2_b2 );
-    sem_close( sem_c3_b1 );sem_close( sem_c3_b2 );
-    sem_destroy( sem_c3_b1 );sem_destroy( sem_c3_b2 );
-    sem_close( sem_c4_b1 );sem_close( sem_c4_b2 );
-    sem_destroy( sem_c4_b1 );sem_destroy( sem_c4_b2 );
-    sem_close( sem_p1_b1 );sem_close( sem_p1_b2 );
-    sem_destroy( sem_p1_b1 );sem_destroy( sem_p1_b2 );
-    sem_close( sem_p2_b1 );sem_close( sem_p2_b2 );
-    sem_destroy( sem_p2_b1 );sem_destroy( sem_p2_b2 );
-    sem_close( sem_p3_b1 );sem_close( sem_p3_b2 );
-    sem_destroy( sem_p3_b1 );sem_destroy( sem_p3_b2 );
-    sem_close( sem_p4_b1 );sem_close( sem_p4_b2 );
-    sem_destroy( sem_p4_b1 );sem_destroy( sem_p4_b2 );
-    /*semaforos arhivos*/
+    /*archivos*/
     sem_close( sem_f1 );
     sem_destroy( sem_f1 );
     sem_close( sem_f2 );
     sem_destroy( sem_f2 );
     sem_close( sem_f3 );
     sem_destroy( sem_f3 );
-    sem_close( sem_f4 );
     sem_destroy( sem_f4 );
-    //BLOQUE1
+    sem_close( sem_f4 );
+    /*BLOQUE1*/
     sem_close( sem_c1_z1 );
     sem_destroy( sem_c1_z1 );
     sem_close( sem_c2_z1 );
@@ -584,7 +586,7 @@ void stopProces(int id_mem){
     sem_destroy( sem_p4_z1 );
     sem_close( sem_p5_z1 );
     sem_destroy( sem_p5_z1 );
-    //BLOQUE2
+    /*BLOQUE2*/
     sem_close( sem_c1_z2 );
     sem_destroy( sem_c1_z2 );
     sem_close( sem_c2_z2 );
@@ -605,6 +607,40 @@ void stopProces(int id_mem){
     sem_destroy( sem_p4_z2 );
     sem_close( sem_p5_z2 );
     sem_destroy( sem_p5_z2 );
+
+    /*Interaciion bloques*/
+    sem_close( sem_c1_b1 );
+    sem_destroy( sem_c1_b1 );
+    sem_close( sem_c1_b2 );
+    sem_destroy( sem_c1_b2 );
+    sem_close( sem_c2_b1 );
+    sem_destroy( sem_c2_b1 );
+    sem_close( sem_c2_b2 );
+    sem_destroy( sem_c2_b2 );
+    sem_close( sem_c3_b1 );
+    sem_destroy( sem_c3_b1 );
+    sem_close( sem_c3_b2 );
+    sem_destroy( sem_c3_b2 );
+    sem_close( sem_c4_b1 );
+    sem_destroy( sem_c4_b1 );
+    sem_close( sem_c4_b2 );
+    sem_destroy( sem_c4_b2 );
+    sem_close( sem_p1_b1 );
+    sem_destroy( sem_p1_b1 );
+    sem_close( sem_p1_b2 );
+    sem_destroy( sem_p1_b2 );
+    sem_close( sem_p2_b1 );
+    sem_destroy( sem_p2_b1 );
+    sem_close( sem_p2_b2 );
+    sem_destroy( sem_p2_b2 );
+    sem_close( sem_p3_b1 );
+    sem_destroy( sem_p3_b1 );
+    sem_close( sem_p3_b2 );
+    sem_destroy( sem_p3_b2 );
+    sem_close( sem_p4_b1 );
+    sem_destroy( sem_p4_b1);
+    sem_close( sem_p4_b2 );
+    sem_destroy( sem_p4_b2 );
 }
 
 

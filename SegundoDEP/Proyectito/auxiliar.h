@@ -425,6 +425,45 @@ void meteValorArchivo(int i){
         sem_post(sem_f4);
     }
 }
+
+void inicializaSemaforos(){
+
+            /* INCIALIZACION DE SEMAOFOROS*/
+    /*zona 1*/
+    sem_c1_z1 = CrearSemaforo( name_sem_c1_z1 , 0 );
+    sem_p1_z1 = CrearSemaforo( name_sem_p1_z1 , 1 );
+    sem_c2_z1 = CrearSemaforo( name_sem_c2_z1 , 0 );
+    sem_p2_z1 = CrearSemaforo( name_sem_p2_z1 , 1 );
+    sem_c3_z1 = CrearSemaforo( name_sem_c3_z1 , 0 );
+    sem_p3_z1 = CrearSemaforo( name_sem_p3_z1 , 1 );
+    sem_c4_z1 = CrearSemaforo( name_sem_c4_z1 , 0 );
+    sem_p4_z1 = CrearSemaforo( name_sem_p4_z1 , 1 );
+    sem_c5_z1 = CrearSemaforo( name_sem_c5_z1 , 0 );
+    sem_p5_z1 = CrearSemaforo( name_sem_p5_z1 , 1 );
+    /*zona 2*/
+    sem_c1_z2 = CrearSemaforo( name_sem_c1_z2 , 0 );
+    sem_p1_z2 = CrearSemaforo( name_sem_p1_z2 , 1 );
+    sem_c2_z2 = CrearSemaforo( name_sem_c2_z2 , 0 );
+    sem_p2_z2 = CrearSemaforo( name_sem_p2_z2 , 1 );
+    sem_c3_z2 = CrearSemaforo( name_sem_c3_z2 , 0 );
+    sem_p3_z2 = CrearSemaforo( name_sem_p3_z2 , 1 );
+    sem_c4_z2 = CrearSemaforo( name_sem_c4_z2 , 0 );
+    sem_p4_z2 = CrearSemaforo( name_sem_p4_z2 , 1 );
+    sem_c5_z2 = CrearSemaforo( name_sem_c5_z2 , 0 );
+    sem_p5_z2 = CrearSemaforo( name_sem_p5_z2 , 1 );
+    /*semaforos files*/
+    sem_f1 = CrearSemaforo( name_sem_f1 , 1 );
+    sem_f2 = CrearSemaforo( name_sem_f2 , 1 );
+    sem_f3 = CrearSemaforo( name_sem_f3 , 1 );
+    sem_f4 = CrearSemaforo( name_sem_f4 , 1 );
+    //
+    sem_c_b1 = CrearSemaforo( name_b1_c , 0 );
+    sem_p_b1 = CrearSemaforo( name_b1_p , 1 );
+    sem_c_b2 = CrearSemaforo( name_b2_c , 0 );
+    sem_p_b2 = CrearSemaforo( name_b2_p , 1 );
+}
+
+
 void unlinkSemaforos(){
     //semaforos bloques
     sem_unlink( name_b1_c );

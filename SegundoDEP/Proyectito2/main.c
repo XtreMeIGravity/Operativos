@@ -16,9 +16,13 @@ Compilar: gcc main.c -o Proyectito.o -lpthread -lrt */
 int main(){
     LimpiaArchivos();
     
-    int stopDatos=10;
+    int stopDatos=10000;
     int id_mem;
     stopProces(id_mem);
+    id_mem = CreaLigaMemoria();
+    Memoria[11]=Memoria[10]=0;
+    /*printf("Memoria en 10 %d\n",Memoria[10]);*/
+
     int pid1,pid2,pid3,pid4,pid5,pid6,pid7;
 
             /* INCIALIZACION DE SEMAOFOROS*/
@@ -87,15 +91,15 @@ int main(){
         consume(id_mem,3);
     }else{
         consume(id_mem,4);
+        wait(NULL);
+        wait(NULL);
+        wait(NULL);
+        wait(NULL);
+        wait(NULL);
+        wait(NULL);
+        wait(NULL);
+        stopProces(id_mem);
+        printf("Finalizado con exito\n");
     }
-    wait(NULL);
-    wait(NULL);
-    wait(NULL);
-    wait(NULL);
-    wait(NULL);
-    wait(NULL);
-    wait(NULL);
-    stopProces(id_mem);
-    printf("Finalizado con exito");
     return 0;
 }
